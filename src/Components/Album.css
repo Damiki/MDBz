@@ -1,11 +1,11 @@
 .AlbumHead{
   display:block;
-  height:30vh;
+  height:350px;
 }
 
 .AlbumImage{
-  width: 30vw;;
-  height:30vh;
+  width: 350px;
+  height: 350px;
   float:left;
 }
 

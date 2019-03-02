@@ -1,0 +1,13 @@
+.Nav{
+  display: block;
+  height : 10vh;
+  padding: 1em;
+  text-align:center;
+  
+}
+
+.Nav input{
+  width:70vw;
+  height: 5vh;
+  border-radius:5%;
+}

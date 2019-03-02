@@ -4,7 +4,7 @@
 }
 
 .AlbumImage{
-  width: 48vh;
+  width: 30%;
   height: 48vh;
   float:left;
 }
@@ -22,6 +22,6 @@
   display:block; 
   box-sizing: border-box;
   padding-left:1em;
-  width:50vw;
+  width:50%;
   float:left;
 }

@@ -1,7 +1,7 @@
 import React from 'react';
-import AlbumHead from './Album/AlbumHead';
-import AlbumRatings from './Album/AlbumRatings';
-import AlbumSongs from './Album/AlbumSongs';
+import AlbumHead from './AlbumComponents/AlbumHead';
+import AlbumRatings from './AlbumComponents/AlbumRatings';
+import AlbumSongs from './AlbumComponents/AlbumSongs';
 import './Album.css';
 
 

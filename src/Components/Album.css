@@ -1,0 +1,27 @@
+.AlbumHead{
+  display:block;
+  height:30vh;
+}
+
+.AlbumImage{
+  width: 30vw;;
+  height:30vh;
+  float:left;
+}
+
+.AlbumDesc{
+  display:block;
+  line-height:2em;
+}
+
+.AlbumDesc span{
+  padding-left:1em;
+}
+
+.AlbumTrack, .AlbumRating{
+  display:block; 
+  box-sizing: border-box;
+  padding-left:1em;
+  width:50vw;
+  float:left;
+}

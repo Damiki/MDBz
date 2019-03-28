@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Dave from './dave';
+import Dam from './Dam';
 
-ReactDOM.render(<Dave />, document.getElementById('root'));
+ReactDOM.render(<Dam />, document.getElementById('root'));

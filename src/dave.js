@@ -8,7 +8,7 @@ class Dave extends Component {
   render() {
     return (
       <div className = "Content_Container">
-        <Nav />
+        {/* <Nav /> */}
         <Album />
       </div>
     );

@@ -1,26 +1,32 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-const Login = (props)=> {
+class Login extends React.Component{
+constructor(props){
+  super(props);
+};
+  userInput = React.createRef();
 
-const userInput = React.createRef();
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const name = this.userInput.current.value;
+    this.props.updateUserName(name);
+  }
 
-handleSubmit = (e) =>{
-  e.preventDefault();
-  props.updateUserName(userInput.current.value);
-}
 
-  return(
-    <form onSubmit = {(e)=> this.handleSubmit()}>
-      <input 
-        type = "text"
-        placeHolder = "Enter a Username"
-        ref = {userInput}
+render(){
+  return (
+    <form onSubmit={(e) => this.handleSubmit(e)}>
+      <input
+        type="text"
+        placeHolder="Enter a Username"
+        ref={this.userInput}
       />
-      <input 
-        type = "submit"
+      <input
+        type="submit"
       />
     </form>
   );
+}
 }
 
 export default Login;

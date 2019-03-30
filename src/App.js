@@ -23,18 +23,26 @@ class App extends Component {
       <Router>
         <div>
           <ul>
-            <li>
+            
+            <li className={this.state.isLoggedIn ? "no-show" : "show"}>
               <Link to="/login">Login</Link>
             </li>
-            <li>
+
+            <li className={this.state.isLoggedIn ? "show" : "no-show"}>
               <Link to="/user">User</Link>
             </li>
+
           </ul>
-          <Route
+          <Route 
+            className ={this.state.isLoggedIn ? "no-show" : "show"}
             exact path="/login"
-            render={() => <Login updateUserName={this.updateUserName} />}
+            render={() => <Login 
+            updateUserName={this.updateUserName} />}
           />
-          <Route exact path="/user" component={User} />
+          <Route
+            exact path="/user"
+            component={User}
+          />
         </div>
       </Router>
     );

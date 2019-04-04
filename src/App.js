@@ -43,7 +43,9 @@ class App extends Component {
           />
           <Route
             exact path="/user"
-            component={User}
+            render={()=> <User 
+              username  = {this.state.username}
+            />}
           />
         </div>
       </Router>

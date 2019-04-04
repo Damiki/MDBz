@@ -4,8 +4,8 @@ const userRating = (props) => {
     return (
         <div>
             <div>
-                <div>{props.albumid}</div>
                 <div>{props.album}</div>
+                <div>{props.artist}</div>
                 <div>{props.rating}</div>
             </div>
         </div>

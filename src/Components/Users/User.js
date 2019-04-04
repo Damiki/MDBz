@@ -5,36 +5,24 @@ import UserImage from './UserComponents/UserImg.png'
 import userRating from './UserComponents/UserRating';
 
 class User extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            name: 'user',
-            id: '1',
-            bio: "hey! i'm a user",
-            ratings: [
-                {
-                    albumid: 1,
-                    album: 'hey yo',
-                    rating: 3
-                },
-                {
-                    albumid: 2,
-                    album: 'jacks albums',
-                    rating: 5
-                },
-                {
-                    albumid: 3,
-                    album: 'byo',
-                    rating: 5
-                },
-                {
-                    albumid: 4,
-                    album: 'hejhs',
-                    rating: 1
-                },
-            ]
+            name: '',
+            ratings: []
         };
     };
+
+    componentDidMount = () => {
+        this.setState({
+            name: this.props.username
+        });
+        fetch('ratings/'+this.props.username)
+        .then(res => res.json())
+        .then(ratingres => this.setState({
+            ratings: ratingres
+        }));
+    }
 
     render() {
         return (
@@ -42,10 +30,10 @@ class User extends Component {
                 <UserHeader name={this.state.name} id={this.state.id} img={UserImage} />
                 <ul>
                     {this.state.ratings.map(rating => (
-                        <li key={rating.albumid}>
-                            <UserRatings albumid={rating.albumid}
-                                album={rating.album}
-                                rating={rating.rating} />
+                        <li key={rating.ALBUM_ID}>
+                            <UserRatings artist={rating.ARTIST_NAME}
+                                album={rating.TITLE}
+                                rating={rating.RATING} />
                         </li>
                     ))}
                 </ul>

@@ -34,7 +34,18 @@ connection.connect(() => {
             }
 
         });
+    });
 
+    app.get('/ratings/:username',(req,res) =>{
+
+        const {username} = req.params;
+
+        connection.query("SELECT R.ALBUM_ID,R.RATING,A.TITLE,A.ARTIST_NAME FROM RATINGS AS R JOIN (SELECT A.TITLE,A.ALBUM_ID,U.ARTIST_NAME FROM ALBUMS AS A JOIN ARTISTS AS U ON A.ARTIST_ID = U.ARTIST_ID) AS A WHERE R.USER_NAME = '"+username+"';", function (err,result){
+            if(err) throw(err);
+
+            res.json(result);
+
+        })
     });
     
     app.use((req, res, next) => {

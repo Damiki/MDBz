@@ -12,10 +12,12 @@ class App extends Component {
   }
 
   updateUserName = (username) => {
-    this.setState({
+    fetch('/user/?username='+username)
+    .then(res => res.json())
+    .then(()=> this.setState({
       username,
       isLoggedIn: true
-    });
+    }));
   }
 
   render() {

@@ -11,12 +11,11 @@ var connection = mysql.createConnection({
 });
 
 connection.connect(() => {
-    app.get('/test', (req, res) => {
+    app.get('/user/?username', (req, res) => {
     
-        connection.query('SELECT * FROM users', function (err, result) {
+        connection.query('SELECT USERNAME FROM USERS WHERE USERNAME = "'++'";', function (err, result) {
             if (err) throw(err);
-    
-            res.json(result);
+            
         })
 
     });

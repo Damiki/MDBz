@@ -10,13 +10,30 @@ var connection = mysql.createConnection({
     database: 'music'
 });
 
+function isEmpty(obj) {
+    for(var key in obj) {
+        if(obj.hasOwnProperty(key))
+            return false;
+    }
+    return true;
+}
+
 connection.connect(() => {
-    app.get('/user/?username', (req, res) => {
+    app.get('/user/:username', (req, res) => {
+        
+        const {username} = req.params;
+        
     
-        connection.query('SELECT USERNAME FROM USERS WHERE USERNAME = "'++'";', function (err, result) {
+        connection.query("SELECT USER_NAME FROM USERS WHERE USER_NAME = '"+username+"';", function (err, result) {
             if (err) throw(err);
             
-        })
+            res.json(result);
+
+            if(isEmpty(result)){
+                connection.query("INSERT INTO USERS VALUES('"+username+"','UserImg.png');")
+            }
+
+        });
 
     });
     

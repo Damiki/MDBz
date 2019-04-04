@@ -12,7 +12,7 @@ class App extends Component {
   }
 
   updateUserName = (username) => {
-    fetch('/user/?username='+username)
+    fetch('/user/'+username)
     .then(res => res.json())
     .then(()=> this.setState({
       username,

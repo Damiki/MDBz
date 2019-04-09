@@ -4,6 +4,9 @@ import { BrowserRouter as Router, Route, Link, Redirect } from
   "react-router-dom";
 import Login from './Components/Login/Login';
 import User from './Components/Users/User';
+import Nav from './Components/Nav/Nav';
+// import Results from './Components/Result/results';
+// import Album from './Components/Album/Album';
 
 class App extends Component {
   state = {
@@ -23,17 +26,13 @@ class App extends Component {
   render() {
     return (
       <Router>
+        
         <div>
+          <div className = {this.state.isLoggedIn ? "show" : "no-show"}><Nav /></div>
           <ul>
-            
             <li className={this.state.isLoggedIn ? "no-show" : "show"}>
               <Link to="/login">Login</Link>
             </li>
-
-            <li className={this.state.isLoggedIn ? "show" : "no-show"}>
-              <Link to="/user">User</Link>
-            </li>
-
           </ul>
           <Route 
             className ={this.state.isLoggedIn ? "no-show" : "show"}
@@ -47,6 +46,15 @@ class App extends Component {
               username  = {this.state.username}
             />}
           />
+          {/* <Route 
+            exact path="/results"
+            component={Results}
+          /> */}
+          {/* <Route
+            exact path="/album"
+            component={Album}
+          /> */}
+          
         </div>
       </Router>
     );

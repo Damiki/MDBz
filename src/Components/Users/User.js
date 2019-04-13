@@ -17,11 +17,13 @@ class User extends Component {
         this.setState({
             name: this.props.username
         });
-        fetch('ratings/'+this.props.username)
-        .then(res => res.json())
-        .then(ratingres => this.setState({
-            ratings: ratingres
-        }));
+
+        console.log('username in USER : '+this.props.username);
+        // fetch('ratings/'+this.props.username)
+        // .then(res => res.json())
+        // .then(ratingres => this.setState({
+        //     ratings: ratingres
+        // }));
     }
 
     render() {

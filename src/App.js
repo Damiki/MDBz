@@ -23,7 +23,7 @@ class App extends Component {
   render() {
     return (
       <div className = "total-wrap">
-        <Nav />
+        {this.state.isLoggedIn && <Nav />}
         <Routes 
           isLoggedIn = {this.state.isLoggedIn}
           updateUserName = {this.updateUserName}

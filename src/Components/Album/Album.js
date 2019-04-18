@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import AlbumHead from './AlbumComponents/AlbumHead';
-import AlbumRatings from './AlbumComponents/AlbumRatings';
+import AlbumRating from './AlbumComponents/AlbumRatings';
 import AlbumSongs from './AlbumComponents/AlbumSongs';
 import Star from './AlbumComponents/Star';
 import './Album.css';
@@ -55,7 +55,7 @@ class Album extends Component {
         <AlbumHead />
         {this.renderStars()}
         <AlbumSongs />
-        <AlbumRatings />
+        <AlbumRatings rating = {this.state.rating}/>
       </div>
     );
   }

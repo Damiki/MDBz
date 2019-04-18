@@ -9,7 +9,6 @@ class Dave extends Component {
     return (
       <div className = "Content_Container">
         {/* <Nav /> */}
-        <Album />
       </div>
     );
   }

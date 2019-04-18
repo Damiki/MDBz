@@ -25,7 +25,12 @@ const Routes = (props) =>{
                     }/>
                 <Route path="/user"
                 render= {()=>
-                    <User username={props.username}/>}
+                    props.isLoggedIn?
+                        ( <User username={props.username}/>
+                        ):(
+                            <Redirect to={{pathname:'login'}}/>
+                        ) 
+                        }
                 />
             </Switch>
         </Router>

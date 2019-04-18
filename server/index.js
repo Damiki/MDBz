@@ -23,14 +23,14 @@ connection.connect(() => {
     app.get('/user/:username', (req, res) => {
         const { username } = req.params;
         console.log('username: '+username);
-        connection.query("SELECT USER_NAME FROM USERS WHERE USER_NAME = '" + username + "';", (err, result) => {
+        connection.query("SELECT USER_NAME,USER_ART FROM USERS WHERE USER_NAME = '" + username + "';", (err, result) => {
             if (err) throw(err);
             
-            console.log('\nresults: '+result);
+            console.log('\nresults: '+result[0].USER_NAME);
 
             res.send(result);
             if (isEmpty(result)) {
-                connection.query("INSERT INTO USERS VALUES(3,'" + username + "','UserImg.png');")
+                connection.query("INSERT INTO USERS VALUES('" + username + "','UserImg.png');")
             }
 
         });

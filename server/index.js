@@ -1,5 +1,8 @@
 const express = require('express');
 const app = express();
+const cookieParser = require('cookie-parser');
+const rand = require('random-key');
+
 
 //requiring mysql
 let mysql = require('mysql');
@@ -18,8 +21,31 @@ function isEmpty(obj) {
     return true;
 }
 
+function getStartTime(){
+    const currentTime = new Date()
+    let hours = currentTime.getHours()
+    let minutes = currentTime.getMinutes()
+    let seconds = currentTime.getSeconds()
+    if (minutes < 10) {
+        minutes = "0" + minutes
+    }
+    if (seconds < 10) {
+        seconds = "0" + seconds
+    }
+    return (hours+":"+minutes+":"+seconds);
+}
+
 connection.connect(() => {
 
+    app.use(cookieParser());
+
+    //Get rid of cookie when back to login
+    app.get('/login', (req,res) =>{
+            res.clearCookie('sid');
+            res.end(console.log('loginin'));
+    });
+
+    //Check existence of Username
     app.get('/user/:username', (req, res) => {
         const { username } = req.params;
         console.log('username: '+username);
@@ -28,10 +54,24 @@ connection.connect(() => {
             
             console.log('\nresults: '+result[0].USER_NAME);
 
-            res.send(result);
             if (isEmpty(result)) {
                 connection.query("INSERT INTO USERS VALUES('" + username + "','UserImg.png');")
             }
+
+
+            //GENERATE RANDOM SESSION IDs
+            const sid = rand.generate(10);
+            
+            //Get Start Time of the Session
+            const starttime = getStartTime();
+            console.log("\nSTART TIME: "+starttime);
+            console.log("\nSID: "+sid);
+
+            // connection.query(
+            //     "INSERT INTO SESSIONS(S_ID,USER_NAME,LOGGED_IN,START_TIME) VALUES('"+sid+"','"+username+"',1,'"+starttime+"');"
+            // )
+
+            res.cookie('sid',sid).send(result);
 
         });
     });

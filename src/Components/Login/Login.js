@@ -20,6 +20,9 @@ class Login extends React.Component {
 
 
   render() {
+
+    fetch('/login');
+    
     return (
       <form className={this.state.submitted ? "no-show" : "show"}
         onSubmit={(e) => this.handleSubmit(e)}>

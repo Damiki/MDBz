@@ -33,10 +33,16 @@ class App extends Component {
     })
   }
 
+  handleLogout = ()=>{
+    console.log("\nLogging out");
+    fetch('/logout')
+    .then(()=> this.setState({isLoggedIn:false}));
+  }
+
   render() {
     return (
       <div className = "total-wrap">
-        {this.state.isLoggedIn && <Nav />}
+        {this.state.isLoggedIn && <Nav handleLogout = {this.handleLogout} />}
         <Routes
           checkLogin = {this.checkLogin}
           isLoggedIn = {this.state.isLoggedIn}

@@ -29,7 +29,7 @@ class Login extends React.Component {
         onSubmit={(e) => this.handleSubmit(e)}>
         <input
           type="text"
-          placeHolder="Enter a Username"
+          placeholder="Enter a Username"
           ref={this.userInput}
         />
         <input

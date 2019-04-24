@@ -1,7 +1,7 @@
 import React from 'react';
 import './Nav.css'
 
-const Nav = () => {
+const Nav = (props) => {
 
   return (
     <div className = "Nav">
@@ -11,7 +11,7 @@ const Nav = () => {
           placeholder="Search for Album"
         />
       </form>
-      <button onClick={()=>fetch('/logout')}>Logout</button>
+      <button onClick={()=>props.handleLogout()}>Logout</button>
     </div>
   );
 }

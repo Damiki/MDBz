@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import UserHeader from './UserComponents/UserHeader';
 import UserRatings from './UserComponents/UserRating';
 import UserImage from './UserComponents/UserImg.png'
-import userRating from './UserComponents/UserRating';
+// import userRating from './UserComponents/UserRating';
 
 class User extends Component {
     constructor(props) {

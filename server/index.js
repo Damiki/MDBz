@@ -5,8 +5,8 @@ const app = express();
 let mysql = require('mysql');
 let connection = mysql.createConnection({
     host: 'localhost',
-    user: 'root',
-    password: 'D@ve7sql',
+    user: 'dam',
+    password: 'D@miki4sql',
     database: 'music'
 });
 

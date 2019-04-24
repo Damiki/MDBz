@@ -12,3 +12,44 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.star_rating {
+  border: 0;
+  margin: 20px 0 0;
+  padding: 0;
+  font-size: 100%;
+}
+
+.star_rating li {
+  float: left;
+  list-style: none;
+  width: 20%;
+  max-width: 40px;
+  line-height: 0;
+  margin-bottom: 10px;
+  text-align: center;
+  padding: 0 5px;
+  box-sizing: border-box;
+}
+
+.star_rating li:first-child {
+  margin-left: -2px;
+}
+
+.star_rating li:hover {
+  cursor: pointer;
+}
+
+.star_rating .star {
+  width: auto;
+  height: 100%;
+  fill: #3658a25f;
+}
+
+.star_rating .selected .star {
+  fill: #2d4f9a;
+}
+
+/* .course--reviews--form .star_rating {
+  margin-bottom: 10px;
+} */

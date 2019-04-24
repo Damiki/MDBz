@@ -76,7 +76,6 @@ connection.connect(() => {
         connection.query("SELECT USER_NAME FROM USERS WHERE USER_NAME = '" + username + "';", (err, result) => {
             if (err) throw(err);
             
-            console.log('\nresults: '+result[0].USER_NAME);
 
             //insert Username to DB if username doesnt exist in DB
             if (isEmpty(result)) {
@@ -120,7 +119,9 @@ connection.connect(() => {
 
     app.get('/logout', (req,res)=>{
         const sid = req.cookies.sid;
+        const stopTime = getTime();
         connection.query("UPDATE SESSIONS SET LOGGED_IN = 0 WHERE S_ID ='"+sid+"';");
+        connection.query("UPDATE SESSIONS SET STOP_TIME ='"+stopTime+"' WHERE S_ID ='"+sid+"';");
         res.clearCookie("sid");
         res.end(console.log('Logged Out'));
     })

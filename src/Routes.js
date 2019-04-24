@@ -2,8 +2,8 @@ import React from 'react';
 import {BrowserRouter as Router,Redirect,Route, Switch} from 'react-router-dom';
 import Login from './Components/Login/Login';
 import User from './Components/Users/User';
-// import Results from './Components/Result/results';
-// import Album from './Components/Album/Album';
+import Results from './Components/Result/results';
+import Album from './Components/Album/Album';
 
 const Routes = (props) =>{
     return(
@@ -35,6 +35,14 @@ const Routes = (props) =>{
                         ) 
                         }
                 />
+                <Route path="/album"
+                render= {()=>
+                    props.isLoggedIn?
+                        ( <Album checkLogin={props.checkLogin} />
+                        ):(
+                            <Redirect to={{pathname:'login'}}/>
+                        ) 
+                        }/>
             </Switch>
         </Router>
     );

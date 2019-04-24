@@ -2,10 +2,13 @@ import React from 'react';
 import './Login.css';
 
 class Login extends React.Component {
-  state = {
+  constructor(props){
+    super(props)
+  this.state = {
     submitted: false
   }
-
+  this.props.checkLogin();
+  }
 
   userInput = React.createRef();
 
@@ -20,6 +23,7 @@ class Login extends React.Component {
 
 
   render() {
+    
     return (
       <form className={this.state.submitted ? "no-show" : "show"}
         onSubmit={(e) => this.handleSubmit(e)}>

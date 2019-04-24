@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter as Router,Link,Redirect,Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router,Redirect,Route, Switch} from 'react-router-dom';
 import Login from './Components/Login/Login';
 import User from './Components/Users/User';
 // import Results from './Components/Result/results';
@@ -21,12 +21,15 @@ const Routes = (props) =>{
                     props.isLoggedIn? (
                     <Redirect to={{pathname:'/user'}} /> )
                     :
-                    ( <Login updateUserName={props.updateUserName}/>)
+                    ( <Login 
+                        updateUserName={props.updateUserName}
+                        checkLogin={props.checkLogin}
+                    />)
                     }/>
                 <Route path="/user"
                 render= {()=>
                     props.isLoggedIn?
-                        ( <User username={props.username}/>
+                        ( <User checkLogin={props.checkLogin} />
                         ):(
                             <Redirect to={{pathname:'login'}}/>
                         ) 

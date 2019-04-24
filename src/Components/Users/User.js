@@ -11,14 +11,18 @@ class User extends Component {
             name: '',
             ratings: []
         };
+        this.props.checkLogin();
     };
 
     componentDidMount = () => {
-        this.setState({
-            name: this.props.username
-        });
 
-        console.log('username in USER : '+this.props.username);
+        fetch('/username')
+        .then(res =>res.json())
+        .then((res)=> 
+            this.setState({name: res})
+        );
+
+        console.log('username in USER : '+this.state.name);
         // fetch('ratings/'+this.props.username)
         // .then(res => res.json())
         // .then(ratingres => this.setState({

@@ -21,12 +21,15 @@ const Routes = (props) =>{
                     props.isLoggedIn? (
                     <Redirect to={{pathname:'/user'}} /> )
                     :
-                    ( <Login updateUserName={props.updateUserName}/>)
+                    ( <Login 
+                        updateUserName={props.updateUserName}
+                        checkLogin={props.checkLogin}
+                    />)
                     }/>
                 <Route path="/user"
                 render= {()=>
                     props.isLoggedIn?
-                        ( <User username={props.username}/>
+                        ( <User checkLogin={props.checkLogin} />
                         ):(
                             <Redirect to={{pathname:'login'}}/>
                         ) 

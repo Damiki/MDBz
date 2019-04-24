@@ -6,9 +6,12 @@ import Nav from './Components/Nav/Nav';
 
 
 class App extends Component {
-  state = {
-    isLoggedIn: false,
-    username: ''
+  constructor(props){
+    super(props)
+    this.state = {
+      isLoggedIn: false,
+  }
+    this.checkLogin();
   }
 
   updateUserName = (username) => {
@@ -16,18 +19,28 @@ class App extends Component {
     .then(res => res.json())
     .then(()=> this.setState({
       username,
-      isLoggedIn: true
-    }));
+      isLoggedIn:true
+  }));
+  }
+
+  checkLogin = ()=>{
+    fetch('/check')
+    .then(res => res.json())
+    .then((res)=> {
+      console.log("\nLoggedIn: "+ res);
+      if(res === 1)
+        this.setState({isLoggedIn : true});
+    })
   }
 
   render() {
     return (
       <div className = "total-wrap">
         {this.state.isLoggedIn && <Nav />}
-        <Routes 
+        <Routes
+          checkLogin = {this.checkLogin}
           isLoggedIn = {this.state.isLoggedIn}
           updateUserName = {this.updateUserName}
-          username = {this.state.username}
         />
       </div>
     );

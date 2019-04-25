@@ -108,6 +108,7 @@ connection.connect(() => {
     });
 
     app.get('/search/:keyword', (req, res) => {
+        console.log("HOSHOSDH");
         const { keyword } = req.params;
         connection.query("SELECT A.ALBUM_ID AS albumid,A.TITLE AS albumname,B.ARTIST_NAME AS artist, A.ALBUM_ART AS albumart FROM ALBUMS AS A JOIN ARTISTS AS B ON A.ARTIST_ID = B.ARTIST_ID WHERE A.TITLE LIKE '%"+keyword+"%';", (err, result) => {
                 if (err) throw (err);

@@ -1,3 +1,16 @@
+*{
+  cursor: default;
+}
+.album-container{
+  display:block;
+  box-sizing:border-box;
+  width:60%;
+  margin:0 auto;
+  padding:2em;
+  background-color:#fff;
+  height:100vh;
+}
+
 .AlbumHead{
   display:block;
   height:48vh;

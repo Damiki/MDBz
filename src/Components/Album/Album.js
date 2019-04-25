@@ -11,7 +11,9 @@ class Album extends Component {
     // this.state = {
     //   rating: 0
     // }
-    this.props.checkLogin();
+    console.log("\nAlbum: "+this.props.album);
+    console.log("\nArtist: "+this.props.artist);
+    console.log("\nArt: "+this.props.art);
   }
 
   // isClicked = (e) => {
@@ -22,7 +24,7 @@ class Album extends Component {
 
   render() {
     return (
-      <div>
+      <div className ="album-container">
         <AlbumHead />
         {/* <StarRating isClicked = {this.isClicked}/> */}
         <StarRating />

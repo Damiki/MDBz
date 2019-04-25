@@ -10,7 +10,8 @@ class Nav extends Component{
 
   handleSubmit = (e)=>{
     e.preventDefault();
-
+    const search = this.searchField.current.value;
+    this.props.handleSearch(search);
   }
 
   render(){
@@ -21,6 +22,10 @@ class Nav extends Component{
             type="text"
             placeholder="Search for Album"
             ref={this.searchField}
+          />
+          <input 
+            type="button"
+            value="Search"
           />
         </form>
         <button onClick={()=>this.props.handleLogout()}>Logout</button>

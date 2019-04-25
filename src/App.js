@@ -11,7 +11,8 @@ class App extends Component {
     this.state = {
       isLoggedIn: false,
       isSearching:false,
-      isLoading:true
+      isLoading:true,
+      search: ""
   }
     this.checkLogin();
   }
@@ -49,8 +50,14 @@ class App extends Component {
     .then(()=> this.setState({isLoggedIn:false}));
   }
 
-  handleSearch = ()=>{
-    this.setState({isSearching:true});
+  handleSearch = (search)=>{
+    this.setState({
+      search,
+      isSearching:true});
+  }
+
+  handleCardClick = ()=>{
+    console.log("\nCLICKED :D");
   }
 
   render() {
@@ -59,12 +66,16 @@ class App extends Component {
     else
     return (
       <div className = "total-wrap">
-        {this.state.isLoggedIn && <Nav handleLogout = {this.handleLogout} />}
+        {this.state.isLoggedIn && <Nav 
+          handleSearch = {this.handleSearch} 
+          handleLogout = {this.handleLogout}
+           />}
         <Routes
           checkLogin = {this.checkLogin}
           isLoggedIn = {this.state.isLoggedIn}
           isSearching = {this.state.isSearching}
           updateUserName = {this.updateUserName}
+          search = {this.state.search}
         />
       </div>
     );

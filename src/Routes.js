@@ -2,50 +2,58 @@ import React from 'react';
 import {BrowserRouter as Router,Redirect,Route, Switch} from 'react-router-dom';
 import Login from './Components/Login/Login';
 import User from './Components/Users/User';
-import Results from './Components/Result/results';
+// import Results from './Components/Result/results';
 import Album from './Components/Album/Album';
 
-const Routes = (props) =>{
+class Routes extends React.Component{
+
+    constructor(props){
+        super(props);
+        this.props.checkLogin();
+    }
+    render(){
+        console.log("ISLOGGEDINBOI: "+this.props.isLoggedIn);
     return(
         <Router>
             <Switch>
                 <Route exact path ="/" render = {()=>
-                    props.isLoggedIn? (
+                    this.props.isLoggedIn? (
                         <Redirect to={{pathname:'/user'}}/>
                     ):(
                         <Redirect to={{pathname:'/login'}} />
                     )
                 } />
+                <Route exact path="/album"
+                render= {()=>
+                    this.props.isLoggedIn?
+                        ( <Album checkLogin={this.props.checkLogin} />
+                        ):(
+                            <Redirect to={{pathname:'/login'}}/>
+                        ) 
+                        }/>
                 <Route exact path ="/login"
                 render= {()=>
-                    props.isLoggedIn? (
+                    this.props.isLoggedIn? (
                     <Redirect to={{pathname:'/user'}} /> )
                     :
                     ( <Login 
-                        updateUserName={props.updateUserName}
-                        checkLogin={props.checkLogin}
+                        updateUserName={this.props.updateUserName}
+                        checkLogin={this.props.checkLogin}
                     />)
                     }/>
                 <Route path="/user"
                 render= {()=>
-                    props.isLoggedIn?
-                        ( <User checkLogin={props.checkLogin} />
+                    this.props.isLoggedIn?
+                        ( <User checkLogin={this.props.checkLogin} />
                         ):(
-                            <Redirect to={{pathname:'login'}}/>
+                            <Redirect to={{pathname:'/login'}}/>
                         ) 
                         }
                 />
-                <Route path="/album"
-                render= {()=>
-                    props.isLoggedIn?
-                        ( <Album checkLogin={props.checkLogin} />
-                        ):(
-                            <Redirect to={{pathname:'login'}}/>
-                        ) 
-                        }/>
             </Switch>
         </Router>
     );
+}
 }
 
 export default Routes;

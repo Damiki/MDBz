@@ -8,8 +8,8 @@ const rand = require('random-key');
 let mysql = require('mysql');
 let connection = mysql.createConnection({
     host: 'localhost',
-    user: 'root',
-    password: 'D@ve7sql',
+    user: 'dam',
+    password: 'D@miki4sql',
     database: 'music'
 });
 
@@ -107,10 +107,9 @@ connection.connect(() => {
         });
     });
 
-    app.get('/search/:keyword/:page', (req, res) => {
+    app.get('/search/:keyword', (req, res) => {
         const { keyword } = req.params;
-        const page = req.params.page * 5;
-        connection.query("SELECT A.ALBUM_ID AS albumid,A.TITLE AS albumname,B.ARTIST_NAME AS artist, A.ALBUM_ART AS albumart FROM ALBUMS AS A JOIN ARTISTS AS B ON A.ARTIST_ID = B.ARTIST_ID WHERE A.TITLE LIKE '%"+keyword+"%' LIMIT 5 OFFSET "+page+";", (err, result) => {
+        connection.query("SELECT A.ALBUM_ID AS albumid,A.TITLE AS albumname,B.ARTIST_NAME AS artist, A.ALBUM_ART AS albumart FROM ALBUMS AS A JOIN ARTISTS AS B ON A.ARTIST_ID = B.ARTIST_ID WHERE A.TITLE LIKE '%"+keyword+"%';", (err, result) => {
                 if (err) throw (err);
                 console.log('keyword'+keyword);
                 console.log('result:'+result);

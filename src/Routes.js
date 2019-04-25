@@ -27,7 +27,7 @@ class Routes extends React.Component{
                 <Route 
                     exact path ="/results"
                     render = {()=>
-                    (this.props.isSearching && this.props.isLoggedIn)?<Results search={this.props.search} />:<div>Not Logged In</div>} 
+                    (this.props.isSearching && this.props.isLoggedIn)?<Results search={this.props.search} />:<Redirect to={{pathname:'/user'}}/>} 
                 />
 
                 {/* <Route exact path="/album"

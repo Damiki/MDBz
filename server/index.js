@@ -8,8 +8,8 @@ const rand = require('random-key');
 let mysql = require('mysql');
 let connection = mysql.createConnection({
     host: 'localhost',
-    user: 'dam',
-    password: 'D@miki4sql',
+    user: 'root',
+    password: 'D@ve7sql',
     database: 'music'
 });
 

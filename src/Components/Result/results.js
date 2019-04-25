@@ -8,19 +8,19 @@ class Results extends Component {
             isLoading: true,
             albums: []
         };
-
-        this.getResults();
     }
 
     getResults = () => {
         // fetch('/search'+this.props.keyword)
-        fetch('search/e')
+        const search = this.props.search;
+        fetch('search/'+search)
             .then(res => res.json())
             .then((res) =>
                 this.setState({ albums: res, isLoading: false }));
     }
 
     render() {
+        this.getResults();
         if (this.state.isLoading)
             return (
                 <div className="Loading">LOADING...</div>
@@ -29,7 +29,10 @@ class Results extends Component {
             <div className="results-container">
                 {this.state.albums.map(album => (
                     <li key={album.abumid}>
-                        <Card albumname={album.albumname} artist={album.artist} albumart={album.albumart} />
+                        <Card 
+                        albumname={album.albumname} 
+                        artist={album.artist} 
+                        albumart={album.albumart} />
                     </li>
                 ))}
             </div>

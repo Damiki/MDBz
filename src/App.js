@@ -56,6 +56,10 @@ class App extends Component {
       isSearching:true});
   }
 
+  handleCardClick = ()=>{
+    console.log("\nCLICKED :D");
+  }
+
   render() {
     if(this.state.isLoading)
       return <div>Loading...</div>

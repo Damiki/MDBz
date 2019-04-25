@@ -7,8 +7,16 @@ constructor(props){
   this.state = {
     rating: 0
   };
+  setRating();
 }
   
+  setRating = () =>{
+    this.setState({
+      rating: this.props.rating
+    });
+  };
+
+
   renderStars = () => {
     let stars = [];
     let maxRating = 5;
@@ -17,20 +25,11 @@ constructor(props){
       stars.push(
         <Star
           isSelected={this.state.rating > i}
-          setRating={ () => this.handleSetRating(i + 1) }
           key={i}
         />
       );
     }
     return stars;
-  }
-
-  handleSetRating = (rating) => {
-    if (this.state.rating === rating) {
-      this.setState({ rating: 0 });
-    } else {
-      this.setState({ rating });
-    }
   }
 
   render() {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import UserHeader from './UserComponents/UserHeader';
 import UserRatings from './UserComponents/UserRating';
 import UserImage from './UserComponents/UserImg.png'
-// import userRating from './UserComponents/UserRating';
+import userRating from './UserComponents/UserRating';
 
 class User extends Component {
     constructor(props) {
@@ -23,11 +23,11 @@ class User extends Component {
             this.setState({name: res})
         );
 
-        // fetch('ratings/'+this.props.username)
-        // .then(res => res.json())
-        // .then(ratingres => this.setState({
-        //     ratings: ratingres
-        // }));
+        fetch('ratings/'+this.props.username)
+        .then(res => res.json())
+        .then(ratingres => this.setState({
+            ratings: ratingres
+        }));
     }
 
     render() {

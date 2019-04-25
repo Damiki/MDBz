@@ -1,40 +1,59 @@
 import React, { Component } from 'react';
+
 import Card from './card';
+import Album from '../Album/Album';
+import './results.css';
 
 class Results extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isLoading: true,
+            isClicked:false,
+            album:'',
+            artist:'',
+            art:'',
             albums: []
         };
     }
 
-    getResults = () => {
-        // fetch('/search'+this.props.keyword)
-        const search = this.props.search;
-        fetch('search/'+search)
-            .then(res => res.json())
-            .then((res) =>
-                this.setState({ albums: res, isLoading: false }));
+    componentDidMount(){
+        this.setState({albums:this.props.albums});
+    }
+
+    
+
+    handleClick = (album,artist,art) =>{
+        this.setState({
+            album,
+            artist,
+            art,
+            isClicked:true})
+    }
+
+    handleExit = ()=>{
+        this.setState({isClicked:false})
     }
 
     render() {
-        this.getResults();
-        if (this.state.isLoading)
-            return (
-                <div className="Loading">LOADING...</div>
-            );
-        else return (
+        return (
             <div className="results-container">
                 {this.state.albums.map(album => (
                     <li key={album.abumid}>
                         <Card 
+                        handleClick={this.handleClick}
                         albumname={album.albumname} 
                         artist={album.artist} 
                         albumart={album.albumart} />
                     </li>
                 ))}
+                {this.state.isClicked && <div className = "overlay">
+                <span id="close" onClick={()=>this.handleExit()}>x</span>
+                    <Album 
+                        album={this.state.album}
+                        artist={this.state.artist}
+                        art={this.state.art}
+                    />
+                </div>}
             </div>
         );
     }

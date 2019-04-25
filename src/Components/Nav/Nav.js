@@ -17,14 +17,14 @@ class Nav extends Component{
   render(){
     return (
       <div className = "Nav">
-        <form onSubmit={(e)=>this.handleSubmit(e)}>
+        <form onSubmit={this.handleSubmit}>
           <input
             type="text"
             placeholder="Search for Album"
             ref={this.searchField}
           />
           <input 
-            type="button"
+            type="submit"
             value="Search"
           />
         </form>

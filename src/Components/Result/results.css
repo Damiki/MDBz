@@ -1,0 +1,32 @@
+.results-container{
+  display:grid;
+  grid-template-columns: repeat(3,1fr);
+}
+
+.results-container img{
+  width:200px;
+  height:200px;
+}
+
+.overlay{
+  display:block;
+  position:fixed;
+  left:0;
+  top:0%;
+  z-index:1;
+  width:100vw;
+  height:100vh;
+  background-color:#c7c7c7;
+  opacity:0.9;
+}
+
+#close{
+  display:block;
+  box-sizing:border-box;
+  width:60%;
+  padding: 0 1em;
+  margin:0 auto;
+  text-align:right;
+  background:#fff;
+  font-size:2em;
+}

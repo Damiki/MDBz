@@ -12,7 +12,9 @@ class App extends Component {
       isLoggedIn: false,
       isSearching:false,
       isLoading:true,
-      search: ""
+      isLoadingResults:false,
+      search: "",
+      albums:[]
   }
     this.checkLogin();
   }
@@ -43,6 +45,8 @@ class App extends Component {
           })
   }
 
+  
+
 
   handleLogout = ()=>{
     console.log("\nLogging out");
@@ -51,18 +55,28 @@ class App extends Component {
   }
 
   handleSearch = (search)=>{
+    console.log('handleSearch')
     this.setState({
       search,
-      isSearching:true});
+    isLoadingResults:true});
+    this.getResults(search);
   }
-
-  handleCardClick = ()=>{
-    console.log("\nCLICKED :D");
-  }
+  
+  getResults = (search) => {
+    // fetch('/search'+this.props.keyword)
+    // const search = this.state.search;
+    fetch('/search/'+search)
+    .then(res => res.json())
+    .then((res) =>
+      this.setState({ albums: res, isLoadingResults:false, 
+        isSearching:true}));
+}
 
   render() {
     if(this.state.isLoading)
       return <div>Loading...</div>
+    else if(this.state.isLoadingResults)
+        return <div>Loading Results...</div>
     else
     return (
       <div className = "total-wrap">
@@ -71,11 +85,11 @@ class App extends Component {
           handleLogout = {this.handleLogout}
            />}
         <Routes
+          albums = {this.state.albums}
           checkLogin = {this.checkLogin}
           isLoggedIn = {this.state.isLoggedIn}
           isSearching = {this.state.isSearching}
           updateUserName = {this.updateUserName}
-          search = {this.state.search}
         />
       </div>
     );

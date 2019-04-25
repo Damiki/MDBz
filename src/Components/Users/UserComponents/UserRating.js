@@ -1,4 +1,5 @@
 import React from 'react';
+import StarRating from './StarRating';
 
 const userRating = (props) => {
     return (
@@ -7,6 +8,7 @@ const userRating = (props) => {
                 <div>{props.album}</div>
                 <div>{props.artist}</div>
                 <div>{props.rating}</div>
+                <StarRating rating = {props.rating}/>
             </div>
         </div>
     );

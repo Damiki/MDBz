@@ -12,9 +12,10 @@ class User extends Component {
             ratings: []
         };
         // this.props.checkLogin();
+        this.getUsername();
     };
 
-    componentDidMount = () => {
+    getUsername = () => {
 
         fetch('/username')
         .then(res =>res.json())

@@ -2,7 +2,7 @@ import React from 'react';
 import {BrowserRouter as Router,Redirect,Route, Switch} from 'react-router-dom';
 import Login from './Components/Login/Login';
 import User from './Components/Users/User';
-// import Results from './Components/Result/results';
+import Results from './Components/Result/results';
 import Album from './Components/Album/Album';
 
 class Routes extends React.Component{
@@ -23,6 +23,13 @@ class Routes extends React.Component{
                         <Redirect to={{pathname:'/login'}} />
                     )
                 } />
+
+                <Route 
+                    exact path ="/results"
+                    render = {()=>
+                    this.props.isSearching?<Results />:<div>Not Logged In</div>} 
+                />
+
                 <Route exact path="/album"
                 render= {()=>
                     this.props.isLoggedIn?

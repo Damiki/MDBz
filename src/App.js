@@ -10,6 +10,7 @@ class App extends Component {
     super(props)
     this.state = {
       isLoggedIn: false,
+      isSearching:false,
       isLoading:true
   }
     this.checkLogin();
@@ -32,17 +33,24 @@ class App extends Component {
       if(res === 1)
         this.setState(()=>{
           return{
-              isLoading : false,
-              isLoggedIn : true
+              isLoggedIn : true,
+              isLoading : false
             }
           })
-  })
-}
+        else
+          this.setState({isLoading:false});
+          })
+  }
+
 
   handleLogout = ()=>{
     console.log("\nLogging out");
     fetch('/logout')
     .then(()=> this.setState({isLoggedIn:false}));
+  }
+
+  handleSearch = ()=>{
+    this.setState({isSearching:true});
   }
 
   render() {
@@ -55,6 +63,7 @@ class App extends Component {
         <Routes
           checkLogin = {this.checkLogin}
           isLoggedIn = {this.state.isLoggedIn}
+          isSearching = {this.state.isSearching}
           updateUserName = {this.updateUserName}
         />
       </div>

@@ -6,21 +6,26 @@ import './Album.css';
 
 
 class Album extends Component {
-  state = {
-    rating: 0,
+  constructor(props){
+    super(props);
+    // this.state = {
+    //   rating: 0
+    // }
+    this.props.checkLogin();
   }
 
-  isClicked = (e) => {
-    this.setState({
-      rating: e
-    });
-  }
+  // isClicked = (e) => {
+  //   this.setState({
+  //     rating: e
+  //   });
+  // }
 
   render() {
     return (
       <div>
         <AlbumHead />
-        <StarRating isClicked = {this.isClicked}/>
+        {/* <StarRating isClicked = {this.isClicked}/> */}
+        <StarRating />
         <AlbumSongs />
       </div>
     );

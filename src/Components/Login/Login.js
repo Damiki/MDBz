@@ -7,7 +7,7 @@ class Login extends React.Component {
   this.state = {
     submitted: false
   }
-  this.props.checkLogin();
+  // this.props.checkLogin();
   }
 
   userInput = React.createRef();

@@ -8,8 +8,8 @@ const rand = require('random-key');
 let mysql = require('mysql');
 let connection = mysql.createConnection({
     host: 'localhost',
-    user: 'dam',
-    password: 'D@miki4sql',
+    user: 'root',
+    password: 'D@ve7sql',
     database: 'music'
 });
 
@@ -52,8 +52,8 @@ connection.connect(() => {
                 console.log("\nChecking: " + result);
                 res.json(result[0].LOGGED_IN);
             }
-            else
-                res.json(result);
+            else 
+            res.json(0);
         });
 
     });

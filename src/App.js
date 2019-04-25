@@ -10,6 +10,8 @@ class App extends Component {
     super(props)
     this.state = {
       isLoggedIn: false,
+      isSearching:false,
+      isLoading:true
   }
     this.checkLogin();
   }
@@ -24,14 +26,22 @@ class App extends Component {
   }
 
   checkLogin = ()=>{
+    
     fetch('/check')
     .then(res => res.json())
     .then((res)=> {
-      console.log("\nLoggedIn: "+ res);
       if(res === 1)
-        this.setState({isLoggedIn : true});
-    })
+        this.setState(()=>{
+          return{
+              isLoggedIn : true,
+              isLoading : false
+            }
+          })
+        else
+          this.setState({isLoading:false});
+          })
   }
+
 
   handleLogout = ()=>{
     console.log("\nLogging out");
@@ -39,13 +49,21 @@ class App extends Component {
     .then(()=> this.setState({isLoggedIn:false}));
   }
 
+  handleSearch = ()=>{
+    this.setState({isSearching:true});
+  }
+
   render() {
+    if(this.state.isLoading)
+      return <div>Loading...</div>
+    else
     return (
       <div className = "total-wrap">
         {this.state.isLoggedIn && <Nav handleLogout = {this.handleLogout} />}
         <Routes
           checkLogin = {this.checkLogin}
           isLoggedIn = {this.state.isLoggedIn}
+          isSearching = {this.state.isSearching}
           updateUserName = {this.updateUserName}
         />
       </div>

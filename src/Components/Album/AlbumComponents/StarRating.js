@@ -8,12 +8,13 @@ constructor(props){
     rating: 0
   };
 }
+  
 
-componentWillMount = () => {
-  this.setState({
-    rating: this.props.rating
-  });
-}
+  isClicked = (e) => {
+    this.setState({
+      rating: e
+    });
+  }
 
   renderStars = () => {
     let stars = [];
@@ -36,7 +37,7 @@ componentWillMount = () => {
       this.setState({ rating: 0 });
     } else {
       this.setState({ rating });
-      this.props.isClicked(rating);
+      this.isClicked(rating);
     }
   }
 

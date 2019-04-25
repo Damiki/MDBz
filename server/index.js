@@ -13,6 +13,7 @@ let connection = mysql.createConnection({
     database: 'music'
 });
 
+
 function isEmpty(obj) {
     for (let key in obj) {
         if (obj.hasOwnProperty(key))
@@ -21,7 +22,7 @@ function isEmpty(obj) {
     return true;
 }
 
-function getTime(){
+function getTime() {
     const currentTime = new Date()
     let hours = currentTime.getHours()
     let minutes = currentTime.getMinutes()
@@ -32,35 +33,37 @@ function getTime(){
     if (seconds < 10) {
         seconds = "0" + seconds
     }
-    return (hours+":"+minutes+":"+seconds);
+    return (hours + ":" + minutes + ":" + seconds);
 }
 
 connection.connect(() => {
 
     app.use(cookieParser());
 
+    app.use(express.static('Images'));
+
     //Check if Logged In
-    app.get('/check', (req,res) =>{
+    app.get('/check', (req, res) => {
 
         const sid = req.cookies.sid;
-        connection.query("SELECT LOGGED_IN FROM SESSIONS WHERE S_ID ='"+sid+"';", (err,result) =>{
-            if(err) throw(err);
-            if(!isEmpty(result)){
-                console.log("\nChecking: "+result);
+        connection.query("SELECT LOGGED_IN FROM SESSIONS WHERE S_ID ='" + sid + "';", (err, result) => {
+            if (err) throw (err);
+            if (!isEmpty(result)) {
+                console.log("\nChecking: " + result);
                 res.json(result[0].LOGGED_IN);
             }
-            else 
-            res.json(result);
+            else
+                res.json(result);
         });
 
     });
 
     //Get username
-    app.get('/username',(req,res) =>{
+    app.get('/username', (req, res) => {
         const sid = req.cookies.sid;
-        console.log("SID in USERNAME ROUTE"+sid);
-        connection.query("SELECT USER_NAME FROM SESSIONS WHERE S_ID='"+sid+"';",(err,result)=>{
-            if(err) throw(err)
+        console.log("SID in USERNAME ROUTE" + sid);
+        connection.query("SELECT USER_NAME FROM SESSIONS WHERE S_ID='" + sid + "';", (err, result) => {
+            if (err) throw (err)
 
             res.json(result[0].USER_NAME);
         });
@@ -69,13 +72,13 @@ connection.connect(() => {
     //Pass username for checking
     app.get('/user/:username', (req, res) => {
         const { username } = req.params;
-        console.log('username: '+username);
+        console.log('username: ' + username);
 
 
         //Check existence of Username        
         connection.query("SELECT USER_NAME FROM USERS WHERE USER_NAME = '" + username + "';", (err, result) => {
-            if (err) throw(err);
-            
+            if (err) throw (err);
+
 
             //insert Username to DB if username doesnt exist in DB
             if (isEmpty(result)) {
@@ -85,23 +88,34 @@ connection.connect(() => {
 
             //GENERATE RANDOM SESSION IDs
             const sid = rand.generate(10);
-            
+
             //Get Start Time of the Session
             const starttime = getTime();
-            console.log("\nSTART TIME: "+starttime);
-            console.log("\nSID: "+sid);
+            console.log("\nSTART TIME: " + starttime);
+            console.log("\nSID: " + sid);
 
 
             //Insert session details to DB
             connection.query(
-                "INSERT INTO SESSIONS(S_ID,USER_NAME,LOGGED_IN,START_TIME) VALUES('"+sid+"','"+username+"',1,'"+starttime+"');"
+                "INSERT INTO SESSIONS(S_ID,USER_NAME,LOGGED_IN,START_TIME) VALUES('" + sid + "','" + username + "',1,'" + starttime + "');"
             );
 
 
             //Set Cookie and send results
-            res.cookie('sid',sid).send(result);
+            res.cookie('sid', sid).send(result);
 
         });
+    });
+
+    app.get('/search/:keyword/:page', (req, res) => {
+        const { keyword } = req.params.keyword;
+        const {page} = req.params.page * 5 ;
+        connection.query("SELECT A.ALBUM_ID AS albumid,A.TITLE AS albumname,B.ARTIST_NAME AS artist, A.ALBUM_ART AS albumart FROM ALBUMS AS A JOIN ARTISTS AS B ON A.ARTIST_ID = B.ARTIST_ID WHERE A.TITLE LIKE '%"+keyword+"%' LIMIT 5 OFFSET "+page+";", (err, result) => {
+                if (err) throw (err);
+                console.log('keyword'+keyword);
+                console.log('result:'+result);
+                res.json(result);
+            })
     });
 
     // app.get('/ratings/:username', (req, res) => {
@@ -117,11 +131,11 @@ connection.connect(() => {
     // });
 
 
-    app.get('/logout', (req,res)=>{
+    app.get('/logout', (req, res) => {
         const sid = req.cookies.sid;
         const stopTime = getTime();
-        connection.query("UPDATE SESSIONS SET LOGGED_IN = 0 WHERE S_ID ='"+sid+"';");
-        connection.query("UPDATE SESSIONS SET STOP_TIME ='"+stopTime+"' WHERE S_ID ='"+sid+"';");
+        connection.query("UPDATE SESSIONS SET LOGGED_IN = 0 WHERE S_ID ='" + sid + "';");
+        connection.query("UPDATE SESSIONS SET STOP_TIME ='" + stopTime + "' WHERE S_ID ='" + sid + "';");
         res.clearCookie("sid");
         res.end(console.log('Logged Out'));
     })

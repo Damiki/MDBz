@@ -3,7 +3,7 @@ import {BrowserRouter as Router,Redirect,Route, Switch} from 'react-router-dom';
 import Login from './Components/Login/Login';
 import User from './Components/Users/User';
 import Results from './Components/Result/results';
-import Album from './Components/Album/Album';
+// import Album from './Components/Album/Album';
 
 class Routes extends React.Component{
 
@@ -27,17 +27,17 @@ class Routes extends React.Component{
                 <Route 
                     exact path ="/results"
                     render = {()=>
-                    this.props.isSearching?<Results />:<div>Not Logged In</div>} 
+                    (this.props.isSearching && this.props.isLoggedIn)?<Results search={this.props.search} />:<div>Not Logged In</div>} 
                 />
 
-                <Route exact path="/album"
+                {/* <Route exact path="/album"
                 render= {()=>
                     this.props.isLoggedIn?
                         ( <Album checkLogin={this.props.checkLogin} />
                         ):(
                             <Redirect to={{pathname:'/login'}}/>
                         ) 
-                        }/>
+                        }/> */}
                 <Route exact path ="/login"
                 render= {()=>
                     this.props.isLoggedIn? (
@@ -49,12 +49,14 @@ class Routes extends React.Component{
                     />)
                     }/>
                 <Route path="/user"
-                render= {()=>
-                    this.props.isLoggedIn?
-                        ( <User checkLogin={this.props.checkLogin} />
-                        ):(
-                            <Redirect to={{pathname:'/login'}}/>
-                        ) 
+                render= {()=>{
+                        if(this.props.isLoggedIn && this.props.isSearching)
+                            return(<Redirect to ={{pathname:'/results'}}/>);
+                        else if(this.props.isLoggedIn)
+                            return(<User checkLogin={this.props.checkLogin} />);
+                        else  
+                            return(<Redirect to={{pathname:'/login'}}/>);
+                }
                         }
                 />
             </Switch>

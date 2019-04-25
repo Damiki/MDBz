@@ -8,8 +8,8 @@ const rand = require('random-key');
 let mysql = require('mysql');
 let connection = mysql.createConnection({
     host: 'localhost',
-    user: 'root',
-    password: 'D@ve7sql',
+    user: 'dam',
+    password: 'D@miki4sql',
     database: 'music'
 });
 
@@ -117,17 +117,17 @@ connection.connect(() => {
             })
     });
 
-    // app.get('/ratings/:username', (req, res) => {
+    app.get('/ratings/:username', (req, res) => {
 
-    //     const {username} = req.params;
+        const {username} = req.params;
 
-    //     connection.query("SELECT R.ALBUM_ID,R.RATING,A.TITLE,A.ARTIST_NAME FROM RATINGS AS R JOIN (SELECT A.TITLE,A.ALBUM_ID,U.ARTIST_NAME FROM ALBUMS AS A JOIN ARTISTS AS U ON A.ARTIST_ID = U.ARTIST_ID) AS A WHERE R.USER_NAME = '" + username + "';", function (err, result) {
-    //         if (err) throw (err);
-    //         console.log('rating result: '+result);
-    //         res.json(result);
+        connection.query("SELECT R.ALBUM_ID, R.USER_NAME, R.RATING,A.TITLE,A.ARTIST_NAME FROM RATINGS AS R JOIN (SELECT A.ARTIST_NAME ,B.TITLE ,B.ARTIST_ID ,B.ALBUM_ID  FROM ARTISTS AS A JOIN ALBUMS AS B ON A.ARTIST_ID=B.ARTIST_ID) AS A ON R.ALBUM_ID =A.ALBUM_ID WHERE R.USER_NAME = '"+username+"';", function (err, result) {
+            if (err) throw (err);
+            console.log('rating result: '+result);
+            res.json(result);
 
-    //     })
-    // });
+        })
+    });
 
 
     app.get('/logout', (req, res) => {

@@ -2,17 +2,18 @@ import React, { Component } from 'react';
 import UserHeader from './UserComponents/UserHeader';
 import UserRatings from './UserComponents/UserRating';
 import UserImage from './UserComponents/UserImg.png'
-import userRating from './UserComponents/UserRating';
 
 class User extends Component {
     constructor(props) {
         super(props);
         this.state = {
             name: '',
-            ratings: []
+            ratings: [],
+            isLoading: true
         };
         // this.props.checkLogin();
         this.getUsername();
+        this.getRatings();
     };
 
     getUsername = () => {
@@ -22,15 +23,23 @@ class User extends Component {
         .then((res)=> 
             this.setState({name: res})
         );
+    }
 
-        fetch('ratings/'+this.props.username)
+    getRatings = () =>{
+        fetch('ratings/damiki')
         .then(res => res.json())
-        .then(ratingres => this.setState({
-            ratings: ratingres
+        .then(ratings => this.setState({
+            ratings: ratings,
+            isLoading: false
         }));
     }
 
     render() {
+        if(this.state.isLoading)
+                return(
+                    <div>Loading</div>
+                );
+        else
         return (
             <div>
                 <UserHeader name={this.state.name} id={this.state.id} img={UserImage} />

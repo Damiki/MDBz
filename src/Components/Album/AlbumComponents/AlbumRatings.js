@@ -1,10 +1,11 @@
 import React from 'react';
-import Star from './Star';
+import StarRating from './AStarRating';
 
 const AlbumRating = ()=>{
   return(
     <div className = "AlbumRating">
-        <h2>{this.props.username}</h2>
+        <span>{this.props.username}</span>
+        <StarRating rating = {this.props.rating}/>
     </div>
   );
 }

@@ -9,6 +9,13 @@ constructor(props){
   };
 }
   
+
+  isClicked = (e) => {
+    this.setState({
+      rating: e
+    });
+  }
+
   renderStars = () => {
     let stars = [];
     let maxRating = 5;
@@ -30,6 +37,7 @@ constructor(props){
       this.setState({ rating: 0 });
     } else {
       this.setState({ rating });
+      this.isClicked(rating);
     }
   }
 

@@ -108,8 +108,8 @@ connection.connect(() => {
     });
 
     app.get('/search/:keyword/:page', (req, res) => {
-        const { keyword } = req.params.keyword;
-        const {page} = req.params.page * 5 ;
+        const { keyword } = req.params;
+        const page = req.params.page * 5;
         connection.query("SELECT A.ALBUM_ID AS albumid,A.TITLE AS albumname,B.ARTIST_NAME AS artist, A.ALBUM_ART AS albumart FROM ALBUMS AS A JOIN ARTISTS AS B ON A.ARTIST_ID = B.ARTIST_ID WHERE A.TITLE LIKE '%"+keyword+"%' LIMIT 5 OFFSET "+page+";", (err, result) => {
                 if (err) throw (err);
                 console.log('keyword'+keyword);

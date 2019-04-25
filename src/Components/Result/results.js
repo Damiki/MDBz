@@ -14,7 +14,7 @@ class Results extends Component  {
 
     getResults = () => {
         // fetch('/search'+this.props.keyword)
-        fetch('search/a')
+        fetch('search/a/1')
         .then(res =>res.json())
         .then((res)=> 
             this.setState({albums: res, isLoading: false}));

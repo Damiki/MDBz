@@ -1,5 +1,6 @@
 *{
   cursor: default;
+  font-family:Arial, Helvetica, sans-serif;
 }
 .album-container{
   display:block;
@@ -14,7 +15,7 @@
 
 .AlbumHead{
   display:block;
-  height:48vh;
+  height:auto;
 }
 
 .AlbumImage{
@@ -25,11 +26,14 @@
 
 .AlbumDesc{
   display:block;
-  line-height:2em;
+  float:right;
+  width:70%;
 }
 
 .AlbumDesc span{
   padding-left:1em;
+  line-height:2;
+  font-size:1.6em;
 }
 
 .AlbumTrack, .AlbumRating{

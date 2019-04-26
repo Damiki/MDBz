@@ -2,10 +2,6 @@ import React,{Component} from 'react';
 import './Nav.css'
 
 class Nav extends Component{
-  constructor(props){
-    super(props);
-  };
-
   searchField = React.createRef();
 
   handleSubmit = (e)=>{
@@ -17,18 +13,19 @@ class Nav extends Component{
   render(){
     return (
       <div className = "Nav">
+      <button onClick={()=>this.props.handleLogout()}>Logout</button>
+      <button onClick={()=>this.props.handleUser()}>Profile</button>
         <form onSubmit={this.handleSubmit}>
-          <input
+          <input className="text"
             type="text"
             placeholder="Search for Album"
             ref={this.searchField}
           />
-          <input 
+          <input className="button"
             type="submit"
             value="Search"
           />
         </form>
-        <button onClick={()=>this.props.handleLogout()}>Logout</button>
       </div>
     );
   }

@@ -19,9 +19,7 @@ class Results extends Component {
     componentDidMount(){
         this.setState({albums:this.props.albums});
     }
-
     
-
     handleClick = (album,artist,art) =>{
         this.setState({
             album,
@@ -35,10 +33,14 @@ class Results extends Component {
     }
 
     render() {
+
+        if(this.state.albums.length < 1)
+            return <div className="results-container">No Results Found</div>
+        else
         return (
             <div className="results-container">
                 {this.state.albums.map(album => (
-                    <div key={album.abumid}>
+                    <div className ="search-card" key={album.abumid}>
                         <Card 
                         handleClick={this.handleClick}
                         albumname={album.albumname} 

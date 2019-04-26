@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import UserHeader from './UserComponents/UserHeader';
 import UserRatings from './UserComponents/UserRating';
-import UserImage from './UserComponents/UserImg.png'
+import UserImage from './UserComponents/UserImg.png';
+import './User.css';
 
 class User extends Component {
     constructor(props) {
@@ -46,7 +47,7 @@ class User extends Component {
                 );
         else
         return (
-            <div>
+            <div className="user-container">
                 <UserHeader name={this.state.name} id={this.state.id} img={UserImage} />
                 <ul>
                     {this.state.ratings.map(rating => (

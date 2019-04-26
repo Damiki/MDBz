@@ -26,12 +26,12 @@ class AlbumSongs extends Component {
       );
     }else return (
       <div className="AlbumTrack">
-        <h1>Tracks:</h1>
-        <ul>
+        <h2>Tracks:</h2>
+        <ol>
           {this.state.songs.map(song => (
             <li key = {song.songid}>{song.title}</li>
           ))}
-        </ul>
+        </ol>
       </div>
     );
   }

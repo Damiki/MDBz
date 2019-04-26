@@ -61,6 +61,10 @@ class App extends Component {
     isLoadingResults:true});
     this.getResults(search);
   }
+
+  handleUser = ()=>{
+    this.setState({isSearching:false});
+  }
   
   getResults = (search) => {
     // fetch('/search'+this.props.keyword)
@@ -83,6 +87,7 @@ class App extends Component {
         {this.state.isLoggedIn && <Nav 
           handleSearch = {this.handleSearch} 
           handleLogout = {this.handleLogout}
+          handleUser = {this.handleUser}
            />}
         <Routes
           albums = {this.state.albums}

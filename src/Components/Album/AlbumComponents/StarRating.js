@@ -57,9 +57,9 @@ componentWillMount = () => {
 
   render() {
     return (
-      <ul className="star_rating">
+      <div className="star_rating">
         { this.renderStars() }
-      </ul>
+      </div>
     );
   }
 }

@@ -27,12 +27,12 @@ class Login extends React.Component {
     return (
       <form className={this.state.submitted ? "no-show" : "show"}
         onSubmit={(e) => this.handleSubmit(e)}>
-        <input
+        <input className="text"
           type="text"
           placeholder="Enter a Username"
           ref={this.userInput}
         />
-        <input
+        <input className="button"
           type="submit"
         />
       </form>

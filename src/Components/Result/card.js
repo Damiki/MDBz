@@ -7,8 +7,8 @@ const Card = (props) =>{
                 src = {"http://localhost:3030/albums/"+props.albumart+".jpg"} alt="" 
                 onClick={() => props.handleClick(props.albumname, props.artist, props.albumart)}>
             </img>
-            <span>{props.albumname}</span>
-            <span>{"    "+props.artist}</span>
+            <p><span>Album: </span> {props.albumname}</p>
+            <p><span>Artist: </span> {"    "+props.artist}</p>
         </div>
     );
 }

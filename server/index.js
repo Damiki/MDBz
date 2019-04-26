@@ -8,8 +8,8 @@ const dateTime = require('node-datetime');
 let mysql = require('mysql');
 let connection = mysql.createConnection({
     host: 'localhost',
-    user: 'root',
-    password: 'D@ve7sql',
+    user: 'dam',
+    password: 'D@miki4sql',
     database: 'music'
 });
 
@@ -135,6 +135,17 @@ connection.connect(() => {
             console.log('rating result: '+result);
             res.json(result);
 
+        })
+    });
+
+    app.get('/songs/:title', (req, res) => {
+
+        const {title} = req.params;
+
+        connection.query("SELECT S.TITLE AS title,S.SONG_ID AS songid FROM SONGS AS S JOIN ALBUMS AS A ON S.ALBUM_ID = A.ALBUM_ID WHERE A.TITLE = '"+title+"';  ", function (err, result) {
+            if (err) throw (err);
+            console.log('songs: '+result);
+            res.json(result);
         })
     });
 

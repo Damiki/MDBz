@@ -35,6 +35,7 @@ class Routes extends React.Component{
                     <Redirect to={{pathname:'/user'}} /> )
                     :
                     ( <Login 
+                        handleUser = {this.props.handleUser}
                         updateUserName={this.props.updateUserName}
                         checkLogin={this.props.checkLogin}
                     />)

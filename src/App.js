@@ -29,7 +29,6 @@ class App extends Component {
   }
 
   checkLogin = ()=>{
-    
     fetch('/check')
     .then(res => res.json())
     .then((res)=> {
@@ -90,6 +89,7 @@ class App extends Component {
           handleUser = {this.handleUser}
            />}
         <Routes
+          handleUser = {this.handleUser}
           albums = {this.state.albums}
           checkLogin = {this.checkLogin}
           isLoggedIn = {this.state.isLoggedIn}

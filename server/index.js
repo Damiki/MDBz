@@ -135,7 +135,7 @@ connection.connect(() => {
         console.log('title: '+data.title);
         console.log('username: '+data.username);
 
-        connection.query("SELECT R.RATING AS rating FROM RATINGS AS R JOIN ALBUMS AS A ON R.ALBUM_ID = A.ALBUM_ID WHERE A.TITLE = '"+data.title+"' AND R.USER_NAME = '"+data.username+"' ORDER BY R.RATE_TIME DESC LIMIT 5;", function (err, result) {
+        connection.query("SELECT R.RATING AS rating FROM RATINGS AS R JOIN ALBUMS AS A ON R.ALBUM_ID = A.ALBUM_ID WHERE A.TITLE = '"+data.title+"' AND R.USER_NAME = '"+data.username+"';", function (err, result) {
             if (err) throw (err);
             console.log('ratings: ' + result);
             res.json(result);

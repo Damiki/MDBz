@@ -33,6 +33,10 @@ class Results extends Component {
     }
 
     render() {
+
+        if(this.state.albums.length < 1)
+            return <div className="results-container">No Results Found</div>
+        else
         return (
             <div className="results-container">
                 {this.state.albums.map(album => (

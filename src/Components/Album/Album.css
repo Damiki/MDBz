@@ -10,7 +10,8 @@
   z-index: 20;
   padding:2em;
   background-color:#fff;
-  height:auto;
+  height:100vh;
+  overflow-y:scroll;
 }
 
 .AlbumHead{

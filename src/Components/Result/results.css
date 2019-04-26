@@ -1,5 +1,6 @@
 .results-container{
   display:grid;
+  margin-top:2em;
   grid-template-columns: repeat(3,1fr);
 }
 
@@ -8,9 +9,7 @@
   height:200px;
 }
 
-ul{
-  list-style-type: none;
-}
+.search-card img{cursor:pointer;}
 
 .overlay{
   display:block;

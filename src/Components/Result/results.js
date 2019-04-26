@@ -38,7 +38,7 @@ class Results extends Component {
         return (
             <div className="results-container">
                 {this.state.albums.map(album => (
-                    <div key={album.abumid}>
+                    <div className ="search-card" key={album.abumid}>
                         <Card 
                         handleClick={this.handleClick}
                         albumname={album.albumname} 

@@ -10,29 +10,30 @@ class Album extends Component {
   constructor(props){
     super(props);
     this.state = {
-      rating: 0,
+      rating: [],
       username: '',
       isLoadingName: true,
       isLoadingRating: true
     }
     this.getUsername();
-    this.getRatings();
 };
 
 getUsername = () => {
 
     fetch('/username')
     .then(res =>res.json())
-    .then((res)=> 
-        this.setState({
-          username: res,
-          isLoadingName: false
-        })
+    .then((res)=> {
+      this.setState({
+        username: res,
+        isLoadingName: false
+      });
+      this.getRatings(res);
+    }  
     );
 }
 
-getRatings = () =>{
-    fetch('ratings/damiki')
+getRatings = (name) =>{
+    fetch('album_user_rating/'+this.props.album+"/"+name)
     .then(res => res.json())
     .then(rating => this.setState({
         rating: rating,

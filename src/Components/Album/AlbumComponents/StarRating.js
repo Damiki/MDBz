@@ -13,10 +13,20 @@ componentWillMount = () => {
   this.setRatingInitial();
 }
   
+isEmpty =(obj)=> {
+  for (let key in obj) {
+      if (obj.hasOwnProperty(key))
+          return false;
+  }
+  return true;
+}
+
   setRatingInitial = () => {
-    this.setState({
-      rating: this.props.rating[0].RATING
-    })
+    if(!this.isEmpty(this.props.rating)){
+      this.setState({
+        rating: this.props.rating[0].rating
+      })
+    }
   }
 
   isClicked = (e) => {

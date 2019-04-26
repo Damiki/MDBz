@@ -8,8 +8,8 @@ const dateTime = require('node-datetime');
 let mysql = require('mysql');
 let connection = mysql.createConnection({
     host: 'localhost',
-    user: 'root',
-    password: 'D@ve7sql',
+    user: 'dam',
+    password: 'D@miki4sql',
     database: 'music'
 });
 
@@ -177,7 +177,7 @@ connection.connect(() => {
                     if (err) throw (err);
                 });
             }else {
-                connection.query("UPDATE RATINGS SET RATING ="+data.rating+", RATE_TIME='"+rtime+"' WHERE USER_NAME= '"+data.username+"';",function(err,res){
+                connection.query("UPDATE RATINGS SET RATING ="+data.rating+", RATE_TIME='"+rtime+"' WHERE USER_NAME= '"+data.username+"' AND ALBUM_ID = "+albumid+";",function(err,res){
                     if (err) throw (err);
                 });
             }

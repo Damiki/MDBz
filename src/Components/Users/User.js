@@ -9,33 +9,38 @@ class User extends Component {
         this.state = {
             name: '',
             ratings: [],
-            isLoading: true
+            isLoadingName: true,
+            isLoadingRatings: true
         };
         // this.props.checkLogin();
         this.getUsername();
-        this.getRatings();
     };
 
     getUsername = () => {
-
         fetch('/username')
         .then(res =>res.json())
-        .then((res)=> 
-            this.setState({name: res})
-        );
+        .then((res)=> {
+            this.setState({
+                name: res,
+                isLoadingName: false
+            });
+            this.getRatings(res);
+        }
+        )
     }
 
-    getRatings = () =>{
-        fetch('ratings/damiki')
+    getRatings = (name) =>{
+        console.log("name"+ name);
+        fetch('ratings/'+name)
         .then(res => res.json())
         .then(ratings => this.setState({
             ratings: ratings,
-            isLoading: false
+            isLoadingRatings: false
         }));
     }
 
     render() {
-        if(this.state.isLoading)
+        if(this.state.isLoadingRatings || this.state.isLoadingName)
                 return(
                     <div>Loading</div>
                 );

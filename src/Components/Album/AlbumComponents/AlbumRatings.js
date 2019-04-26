@@ -6,16 +6,17 @@ class AlbumRating extends Component{
     super(props);
     this.state = {
       isLoading: true,
-      ratings: []
+      ratings: [],
     }
     this.getRatings();
   }
 
+
   getRatings = () => {
-    fetch('/rating/'+this.props.title+'/'+this.props.username)
+    fetch('/userratings/'+this.props.title+'/'+this.props.username)
     .then(res => res.json())
-    .then(songs => this.setState({
-      songs: songs,
+    .then(ratings => this.setState({
+      ratings: ratings,
       isLoading:false
     }));
   }
@@ -27,13 +28,14 @@ class AlbumRating extends Component{
       );
     }else return(
       <div className = "AlbumRating">
+      <h1>User Ratings:</h1>
           <ul>
-            {this.state.ratings.map( rating => {
+            {this.state.ratings.map( rating => (
               <li key = {rating.username}>
                 <span>{rating.username}</span>
                 <StarRating rating = {rating.rating}/>
               </li>
-            })}
+            ))}
           </ul>
       </div>
     );

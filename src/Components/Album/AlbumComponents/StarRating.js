@@ -8,12 +8,26 @@ constructor(props){
     rating: 0
   };
 }
+
+componentWillMount = () => {
+  this.setRatingInitial();
+}
   
+  setRatingInitial = () => {
+    this.setState({
+      rating: this.props.rating[0].RATING
+    })
+  }
 
   isClicked = (e) => {
     this.setState({
       rating: e
     });
+    this.setRating(e);
+  }
+
+  setRating = (e) => {
+    fetch('/setrating/'+this.props.title+'/'+this.props.username+'/'+e);
   }
 
   renderStars = () => {

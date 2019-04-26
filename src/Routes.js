@@ -3,7 +3,6 @@ import {BrowserRouter as Router,Redirect,Route, Switch} from 'react-router-dom';
 import Login from './Components/Login/Login';
 import User from './Components/Users/User';
 import Results from './Components/Result/results';
-// import Album from './Components/Album/Album';
 
 class Routes extends React.Component{
 
@@ -30,14 +29,6 @@ class Routes extends React.Component{
                     (this.props.isSearching && this.props.isLoggedIn)?<Results albums = {this.props.albums} />:<Redirect to={{pathname:'/user'}}/>} 
                 />
 
-                {/* <Route exact path="/album"
-                render= {()=>
-                    this.props.isLoggedIn?
-                        ( <Album checkLogin={this.props.checkLogin} />
-                        ):(
-                            <Redirect to={{pathname:'/login'}}/>
-                        ) 
-                        }/> */}
                 <Route exact path ="/login"
                 render= {()=>
                     this.props.isLoggedIn? (

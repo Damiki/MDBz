@@ -38,13 +38,13 @@ class Results extends Component {
         return (
             <div className="results-container">
                 {this.state.albums.map(album => (
-                    <li key={album.abumid}>
+                    <div key={album.abumid}>
                         <Card 
                         handleClick={this.handleClick}
                         albumname={album.albumname} 
                         artist={album.artist} 
                         albumart={album.albumart} />
-                    </li>
+                    </div>
                 ))}
                 {this.state.isClicked && <div className = "overlay">
                 <span id="close" onClick={()=>this.handleExit()}>x</span>

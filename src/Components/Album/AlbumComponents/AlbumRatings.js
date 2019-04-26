@@ -8,7 +8,7 @@ class AlbumRating extends Component{
       isLoading: true,
       ratings: []
     }
-    getRatings();
+    this.getRatings();
   }
 
   getRatings = () => {
@@ -21,7 +21,7 @@ class AlbumRating extends Component{
   }
 
   render(){
-    if(isLoading){
+    if(this.state.isLoading){
       return(
         <div>Loading...</div>
       );

@@ -7,7 +7,7 @@ class AlbumSongs extends Component {
       songs: [],
       isLoading: true
     }
-    getSongs();
+    this.getSongs();
   };
 
   getSongs = () => {
@@ -20,7 +20,7 @@ class AlbumSongs extends Component {
   }
 
   render() {
-    if(isLoading){
+    if(this.state.isLoading){
       return(
         <div>Loading...</div>
       );

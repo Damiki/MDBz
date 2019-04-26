@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import AlbumHead from './AlbumComponents/AlbumHead';
 import AlbumSongs from './AlbumComponents/AlbumSongs';
 import StarRating from './AlbumComponents/StarRating';
+import AlbumRatings from './AlbumComponents/AlbumRatings';
 import './Album.css';
 
 
@@ -11,9 +12,6 @@ class Album extends Component {
     // this.state = {
     //   rating: 0
     // }
-    console.log("\nAlbum: "+this.props.album);
-    console.log("\nArtist: "+this.props.artist);
-    console.log("\nArt: "+this.props.art);
   }
 
   // isClicked = (e) => {
@@ -25,10 +23,11 @@ class Album extends Component {
   render() {
     return (
       <div className ="album-container">
-        <AlbumHead />
+        <AlbumHead art = {this.props.art} title = {this.props.album} artist = {this.props.artist}/>
         {/* <StarRating isClicked = {this.isClicked}/> */}
         <StarRating />
-        <AlbumSongs />
+        <AlbumSongs title = {this.props.album}/>
+        <AlbumRatings title = {this.props.album}/>
       </div>
     );
   }

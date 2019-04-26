@@ -1,14 +1,14 @@
 import React from 'react'
-import sample from './samplebg.png'
 
 const AlbumHead = () => {
   return (
     <div className="AlbumHead">
-      <img className="AlbumImage" src={sample} />
+      <img
+        src={"http://localhost:3030/albums/" + props.art + ".jpg"} alt="">
+      </img>
       <div className="AlbumDesc">
-        <span>Title</span><br />
-        <span>Artist</span><br />
-        <span>Release Date</span><br />
+        <span><h1>Title: </h1>{props.title}</span><br />
+        <span><h2>Artist: </h2>{props.artist}</span><br />
       </div>
     </div>
   );

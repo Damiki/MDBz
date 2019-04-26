@@ -1,4 +1,4 @@
 .show{display: inline;}
 .no-show{display: none;}
 form .text{cursor: text;}
-form .button, button{cursor: pointer;}
+form .button, button, svg, svg path, #close{cursor: pointer;}

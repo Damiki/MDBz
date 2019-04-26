@@ -16,12 +16,12 @@
 
 .overlay{
   display:block;
-  position:fixed;
+  position:absolute;
   left:0;
-  top:0%;
+  top:0;
   z-index:1;
   width:100vw;
-  height:100vh;
+  height:auto;
   background-color:rgba(126, 126, 126, 0.705);
 }
 
@@ -38,4 +38,9 @@
   text-align:right;
   background:#fff;
   font-size:2em;
+}
+
+#close:hover{
+  color:#fff;
+  background: rgb(117, 117, 117);
 }

@@ -10,7 +10,7 @@
   z-index: 20;
   padding:2em;
   background-color:#fff;
-  height:100vh;
+  height:auto;
 }
 
 .AlbumHead{
@@ -36,7 +36,7 @@
   font-size:1.6em;
 }
 
-.AlbumTrack, .AlbumRating{
+ .AlbumRating{
   display:block; 
   box-sizing: border-box;
   padding-left:1em;
@@ -46,4 +46,16 @@
 
 .star-color{
   fill:blue;
+}
+
+.AlbumTrack{
+  display:block;
+  margin-top:2em;
+  font-size:1.2em;
+  line-height: 1.4;
+}
+
+.star_rating{
+  display:block;
+  height:30px;
 }

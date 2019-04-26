@@ -43,9 +43,9 @@ constructor(props){
 
   render() {
     return (
-      <ul className="star_rating">
+      <div className="star_rating">
         { this.renderStars() }
-      </ul>
+      </div>
     );
   }
 }

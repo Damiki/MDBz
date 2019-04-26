@@ -2,14 +2,14 @@ const express = require('express');
 const app = express();
 const cookieParser = require('cookie-parser');
 const rand = require('random-key');
-
+const dateTime = require('node-datetime');
 
 //requiring mysql
 let mysql = require('mysql');
 let connection = mysql.createConnection({
     host: 'localhost',
-    user: 'dam',
-    password: 'D@miki4sql',
+    user: 'root',
+    password: 'D@ve7sql',
     database: 'music'
 });
 
@@ -22,18 +22,26 @@ function isEmpty(obj) {
     return true;
 }
 
-function getTime() {
-    const currentTime = new Date()
-    let hours = currentTime.getHours()
-    let minutes = currentTime.getMinutes()
-    let seconds = currentTime.getSeconds()
-    if (minutes < 10) {
-        minutes = "0" + minutes
-    }
-    if (seconds < 10) {
-        seconds = "0" + seconds
-    }
-    return (hours + ":" + minutes + ":" + seconds);
+// function getTime() {
+//     const currentTime = new Date()
+//     let hours = currentTime.getHours()
+//     let minutes = currentTime.getMinutes()
+//     let seconds = currentTime.getSeconds()
+//     if (minutes < 10) {
+//         minutes = "0" + minutes
+//     }
+//     if (seconds < 10) {
+//         seconds = "0" + seconds
+//     }
+//     return (hours + ":" + minutes + ":" + seconds);
+// }
+
+function getDate(){
+    const dt = dateTime.create();
+    const formatted = dt.format('Y-m-d H:M:S');
+    console.log("FORMATTED: "+formatted);
+    return(formatted);
+    
 }
 
 connection.connect(() => {
@@ -90,7 +98,7 @@ connection.connect(() => {
             const sid = rand.generate(10);
 
             //Get Start Time of the Session
-            const starttime = getTime();
+            const starttime = getDate();
             console.log("\nSTART TIME: " + starttime);
             console.log("\nSID: " + sid);
 
@@ -133,7 +141,7 @@ connection.connect(() => {
 
     app.get('/logout', (req, res) => {
         const sid = req.cookies.sid;
-        const stopTime = getTime();
+        const stopTime = getDate();
         connection.query("UPDATE SESSIONS SET LOGGED_IN = 0 WHERE S_ID ='" + sid + "';");
         connection.query("UPDATE SESSIONS SET STOP_TIME ='" + stopTime + "' WHERE S_ID ='" + sid + "';");
         res.clearCookie("sid");

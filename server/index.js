@@ -22,20 +22,6 @@ function isEmpty(obj) {
     return true;
 }
 
-// function getTime() {
-//     const currentTime = new Date()
-//     let hours = currentTime.getHours()
-//     let minutes = currentTime.getMinutes()
-//     let seconds = currentTime.getSeconds()
-//     if (minutes < 10) {
-//         minutes = "0" + minutes
-//     }
-//     if (seconds < 10) {
-//         seconds = "0" + seconds
-//     }
-//     return (hours + ":" + minutes + ":" + seconds);
-// }
-
 function getDate() {
     const dt = dateTime.create();
     const formatted = dt.format('Y-m-d H:M:S');
@@ -160,7 +146,7 @@ connection.connect(() => {
         console.log('title: '+data.title);
         console.log('username: '+data.username);
 
-        connection.query("SELECT R.RATING AS rating,R.RATE_TIME AS ratetime,R.USER_NAME AS username FROM RATINGS AS R JOIN ALBUMS AS A ON R.ALBUM_ID = A.ALBUM_ID WHERE A.TITLE = '"+data.title+"' AND R.USER_NAME != '"+data.username+"';", function (err, result) {
+        connection.query("SELECT R.RATING AS rating,R.RATE_TIME AS ratetime,R.USER_NAME AS username FROM RATINGS AS R JOIN ALBUMS AS A ON R.ALBUM_ID = A.ALBUM_ID WHERE A.TITLE = '"+data.title+"' AND R.USER_NAME != '"+data.username+"' ORDER BY R.RATE_TIME DESC LIMIT 5;", function (err, result) {
             if (err) throw (err);
             console.log('ratings: ' + result);
             res.json(result);

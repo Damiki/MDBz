@@ -1,7 +1,10 @@
 .results-container{
   display:grid;
   margin-top:2em;
+  width:70%;
+  margin:0 auto;
   grid-template-columns: repeat(3,1fr);
+  grid-row-gap: 2em;
 }
 
 .results-container img{
@@ -20,6 +23,10 @@
   width:100vw;
   height:100vh;
   background-color:rgba(126, 126, 126, 0.705);
+}
+
+.card p span{
+  font-weight:700;
 }
 
 #close{

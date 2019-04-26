@@ -8,8 +8,8 @@ const dateTime = require('node-datetime');
 let mysql = require('mysql');
 let connection = mysql.createConnection({
     host: 'localhost',
-    user: 'dam',
-    password: 'D@miki4sql',
+    user: 'root',
+    password: 'D@ve7sql',
     database: 'music'
 });
 
@@ -41,7 +41,6 @@ function getDate(){
     const formatted = dt.format('Y-m-d H:M:S');
     console.log("FORMATTED: "+formatted);
     return(formatted);
-    
 }
 
 connection.connect(() => {

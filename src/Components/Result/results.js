@@ -19,9 +19,7 @@ class Results extends Component {
     componentDidMount(){
         this.setState({albums:this.props.albums});
     }
-
     
-
     handleClick = (album,artist,art) =>{
         this.setState({
             album,

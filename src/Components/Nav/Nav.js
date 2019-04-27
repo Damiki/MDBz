@@ -1,19 +1,34 @@
-import React from 'react';
+import React,{Component} from 'react';
 import './Nav.css'
 
-const Nav = () => {
-  return (
-    <div className = "Nav">
-      <form>
-        <input
-          type="text"
-          placeholder="Search for Album"
+class Nav extends Component{
+  searchField = React.createRef();
 
-        />
-      </form>
-    </div>
-  );
+  handleSubmit = (e)=>{
+    e.preventDefault();
+    const search = this.searchField.current.value;
+    this.props.handleSearch(search);
+  }
+
+  render(){
+    return (
+      <div className = "Nav">
+      <button onClick={()=>this.props.handleLogout()}>Logout</button>
+      <button onClick={()=>this.props.handleUser()}>Profile</button>
+        <form onSubmit={this.handleSubmit}>
+          <input className="text"
+            type="text"
+            placeholder="Search for Album"
+            ref={this.searchField}
+          />
+          <input className="button"
+            type="submit"
+            value="Search"
+          />
+        </form>
+      </div>
+    );
+  }
 }
-
 export default Nav;
 

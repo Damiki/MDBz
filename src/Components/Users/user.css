@@ -1,0 +1,14 @@
+.user-container{
+  display:block;
+  width:70%;
+  box-sizing: border-box;
+  margin:0 auto;
+}
+
+.UserName{
+  display:block;
+  width:150px;
+  text-align:center;
+  margin-top:0.5em;
+  font-size:1.6em;
+}

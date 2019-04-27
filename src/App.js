@@ -6,9 +6,17 @@ import Nav from './Components/Nav/Nav';
 
 
 class App extends Component {
-  state = {
-    isLoggedIn: false,
-    username: ''
+  constructor(props){
+    super(props)
+    this.state = {
+      isLoggedIn: false,
+      isSearching:false,
+      isLoading:true,
+      isLoadingResults:false,
+      search: "",
+      albums:[]
+  }
+    this.checkLogin();
   }
 
   updateUserName = (username) => {
@@ -16,18 +24,77 @@ class App extends Component {
     .then(res => res.json())
     .then(()=> this.setState({
       username,
-      isLoggedIn: true
-    }));
+      isLoggedIn:true
+  }));
   }
 
+  checkLogin = ()=>{
+    fetch('/check')
+    .then(res => res.json())
+    .then((res)=> {
+      if(res === 1)
+        this.setState(()=>{
+          return{
+              isLoggedIn : true,
+              isLoading : false
+            }
+          })
+        else
+          this.setState({isLoading:false});
+          })
+  }
+
+  
+
+
+  handleLogout = ()=>{
+    console.log("\nLogging out");
+    fetch('/logout')
+    .then(()=> this.setState({isLoggedIn:false}));
+  }
+
+  handleSearch = (search)=>{
+    console.log('handleSearch')
+    this.setState({
+      search,
+    isLoadingResults:true});
+    this.getResults(search);
+  }
+
+  handleUser = ()=>{
+    this.setState({isSearching:false});
+  }
+  
+  getResults = (search) => {
+    // fetch('/search'+this.props.keyword)
+    // const search = this.state.search;
+    fetch('/search/'+search)
+    .then(res => res.json())
+    .then((res) =>
+      this.setState({ albums: res, isLoadingResults:false, 
+        isSearching:true}));
+}
+
   render() {
+    if(this.state.isLoading)
+      return <div>Loading...</div>
+    else if(this.state.isLoadingResults)
+        return <div>Loading Results...</div>
+    else
     return (
       <div className = "total-wrap">
-        {this.state.isLoggedIn && <Nav />}
-        <Routes 
+        {this.state.isLoggedIn && <Nav 
+          handleSearch = {this.handleSearch} 
+          handleLogout = {this.handleLogout}
+          handleUser = {this.handleUser}
+           />}
+        <Routes
+          handleUser = {this.handleUser}
+          albums = {this.state.albums}
+          checkLogin = {this.checkLogin}
           isLoggedIn = {this.state.isLoggedIn}
+          isSearching = {this.state.isSearching}
           updateUserName = {this.updateUserName}
-          username = {this.state.username}
         />
       </div>
     );
@@ -35,37 +102,3 @@ class App extends Component {
 }
 
 export default App;
-
-
-// <Router>
-        
-      //   <div>
-      //     <div className = {this.state.isLoggedIn ? "show" : "no-show"}><Nav /></div>
-      //     <ul>
-      //       <li className={this.state.isLoggedIn ? "no-show" : "show"}>
-      //         <Link to="/login">Login</Link>
-      //       </li>
-      //     </ul>
-      //     <Route 
-      //       className ={this.state.isLoggedIn ? "no-show" : "show"}
-      //       exact path="/login"
-      //       render={() => <Login 
-      //       updateUserName={this.updateUserName} />}
-      //     />
-      //     <Route
-      //       exact path="/user"
-      //       render={()=> <User 
-      //         username  = {this.state.username}
-      //       />}
-      //     />
-      //     {/* <Route 
-      //       exact path="/results"
-      //       component={Results}
-      //     /> */}
-      //     {/* <Route
-      //       exact path="/album"
-      //       component={Album}
-      //     /> */}
-          
-      //   </div>
-      // </Router>

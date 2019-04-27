@@ -3,11 +3,34 @@
   height : 10vh;
   padding: 1em;
   text-align:center;
-  
+  margin-bottom:2em;
 }
 
-.Nav input{
-  width:70vw;
+form{
+  width:80vw;
+}
+
+.Nav .text{
+  width:60vw;
   height: 5vh;
-  border-radius:5%;
+  border-radius:1% / 80%;
+}
+
+.Nav .button{
+  width:5vw;
+  height:6vh;
+  border-radius:8% / 80%;
+}
+
+.Nav .button:hover{
+  background-color:#757575;
+  color:#fff;
+}
+
+.Nav button{
+  float:right;
+  padding: 8px;
+  width:5vw;
+  margin: 0 7px;
+  
 }

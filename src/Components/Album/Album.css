@@ -1,6 +1,22 @@
+*{
+  cursor: default;
+  font-family:Arial, Helvetica, sans-serif;
+}
+.album-container{
+  display:block;
+  box-sizing:border-box;
+  width:60%;
+  margin:0 auto;
+  z-index: 20;
+  padding:2em;
+  background-color:#fff;
+  height:100vh;
+  overflow-y:scroll;
+}
+
 .AlbumHead{
   display:block;
-  height:48vh;
+  height:auto;
 }
 
 .AlbumImage{
@@ -11,14 +27,17 @@
 
 .AlbumDesc{
   display:block;
-  line-height:2em;
+  float:right;
+  width:70%;
 }
 
 .AlbumDesc span{
   padding-left:1em;
+  line-height:2;
+  font-size:1.6em;
 }
 
-.AlbumTrack, .AlbumRating{
+ .AlbumRating{
   display:block; 
   box-sizing: border-box;
   padding-left:1em;
@@ -28,4 +47,16 @@
 
 .star-color{
   fill:blue;
+}
+
+.AlbumTrack{
+  display:block;
+  margin-top:2em;
+  font-size:1.2em;
+  line-height: 1.4;
+}
+
+.star_rating{
+  display:block;
+  height:30px;
 }

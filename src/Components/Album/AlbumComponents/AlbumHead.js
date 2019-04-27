@@ -9,6 +9,7 @@ const AlbumHead = (props) => {
       <div className="AlbumDesc">
         <span><strong>Title: </strong>{props.title}</span><br />
         <span><strong>Artist: </strong>{props.artist}</span><br />
+        <span><strong>Average Rating: </strong>{props.average}</span><br />
       </div>
     </div>
   );

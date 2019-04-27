@@ -8,8 +8,8 @@ const dateTime = require('node-datetime');
 let mysql = require('mysql');
 let connection = mysql.createConnection({
     host: 'localhost',
-    user: 'root',
-    password: 'D@ve7sql',
+    user: 'dam',
+    password: 'D@miki4sql',
     database: 'music'
 });
 
@@ -200,6 +200,15 @@ connection.connect(() => {
                 });
             }
         })
+    });
+
+    app.get('/average/:title',(req,res)=>{
+        const {title} = req.params;
+        connection.query("SELECT AVG(R.RATING) AS avg FROM RATINGS AS R JOIN ALBUMS AS A ON A.ALBUM_ID = R.ALBUM_ID WHERE A.TITLE = '"+title+"';",function(err,result){
+            if(err) throw(err);
+            console.log("average for "+title+": "+result);
+            if(!isEmpty(result)) res.json(result[0].avg);
+        });
     });
 
     app.get('/logout', (req, res) => {

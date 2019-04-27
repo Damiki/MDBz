@@ -8,8 +8,8 @@ const dateTime = require('node-datetime');
 let mysql = require('mysql');
 let connection = mysql.createConnection({
     host: 'localhost',
-    user: 'dam',
-    password: 'D@miki4sql',
+    user: 'root',
+    password: 'D@ve7sql',
     database: 'music'
 });
 
@@ -43,7 +43,6 @@ connection.connect(() => {
         connection.query("SELECT LOGGED_IN FROM SESSIONS WHERE S_ID ='" + sid + "';", (err, result) => {
             if (err) throw (err);
             if (!isEmpty(result)) {
-                console.log("\nChecking: " + result);
                 res.json(result[0].LOGGED_IN);
             }
             else
@@ -55,7 +54,6 @@ connection.connect(() => {
     //Get username
     app.get('/username', (req, res) => {
         const sid = req.cookies.sid;
-        console.log("SID in USERNAME ROUTE" + sid);
         connection.query("SELECT USER_NAME FROM SESSIONS WHERE S_ID='" + sid + "';", (err, result) => {
             if (err) throw (err)
 
@@ -66,7 +64,6 @@ connection.connect(() => {
     //Pass username for checking
     app.get('/user/:username', (req, res) => {
         const { username } = req.params;
-        console.log('username: ' + username);
 
 
         //Check existence of Username        
@@ -85,8 +82,6 @@ connection.connect(() => {
 
             //Get Start Time of the Session
             const starttime = getDate();
-            console.log("\nSTART TIME: " + starttime);
-            console.log("\nSID: " + sid);
 
 
             //Insert session details to DB
@@ -102,12 +97,9 @@ connection.connect(() => {
     });
 
     app.get('/search/:keyword', (req, res) => {
-        console.log("HOSHOSDH");
         const { keyword } = req.params;
         connection.query("SELECT A.ALBUM_ID AS albumid,A.TITLE AS albumname,B.ARTIST_NAME AS artist, A.ALBUM_ART AS albumart FROM ALBUMS AS A JOIN ARTISTS AS B ON A.ARTIST_ID = B.ARTIST_ID WHERE A.TITLE LIKE '%" + keyword + "%';", (err, result) => {
             if (err) throw (err);
-            console.log('keyword' + keyword);
-            console.log('result:' + result);
             res.json(result);
         })
     });
@@ -115,10 +107,8 @@ connection.connect(() => {
     app.get('/ratings/:username', (req, res) => {
 
         const { username } = req.params;
-        console.log("username:" + username);
         connection.query("SELECT R.ALBUM_ID, R.USER_NAME, R.RATING,A.TITLE,A.ARTIST_NAME FROM RATINGS AS R JOIN (SELECT A.ARTIST_NAME ,B.TITLE ,B.ARTIST_ID ,B.ALBUM_ID  FROM ARTISTS AS A JOIN ALBUMS AS B ON A.ARTIST_ID=B.ARTIST_ID) AS A ON R.ALBUM_ID =A.ALBUM_ID WHERE R.USER_NAME = '" + username + "';", function (err, result) {
             if (err) throw (err);
-            console.log('rating result: ' + result);
             res.json(result);
 
         })
@@ -131,13 +121,8 @@ connection.connect(() => {
                 "username": req.params.username
         };
 
-        console.log(req.params);
-        console.log('title: '+data.title);
-        console.log('username: '+data.username);
-
         connection.query("SELECT R.RATING AS rating FROM RATINGS AS R JOIN ALBUMS AS A ON R.ALBUM_ID = A.ALBUM_ID WHERE A.TITLE = '"+data.title+"' AND R.USER_NAME = '"+data.username+"';", function (err, result) {
             if (err) throw (err);
-            console.log('ratings: ' + result);
             res.json(result);
         })
     });
@@ -148,7 +133,6 @@ connection.connect(() => {
 
         connection.query("SELECT S.TITLE AS title,S.SONG_ID AS songid FROM SONGS AS S JOIN ALBUMS AS A ON S.ALBUM_ID = A.ALBUM_ID WHERE A.TITLE = '" + title + "';  ", function (err, result) {
             if (err) throw (err);
-            console.log('songs: ' + result);
             res.json(result);
         })
     });
@@ -160,13 +144,9 @@ connection.connect(() => {
                 "username": req.params.username
         };
 
-        console.log(req.params);
-        console.log('title: '+data.title);
-        console.log('username: '+data.username);
 
         connection.query("SELECT R.RATING AS rating,R.RATE_TIME AS ratetime,R.USER_NAME AS username FROM RATINGS AS R JOIN ALBUMS AS A ON R.ALBUM_ID = A.ALBUM_ID WHERE A.TITLE = '"+data.title+"' AND R.USER_NAME != '"+data.username+"' ORDER BY R.RATE_TIME DESC LIMIT 5;", function (err, result) {
             if (err) throw (err);
-            console.log('ratings: ' + result);
             res.json(result);
         })
     });
@@ -180,13 +160,10 @@ connection.connect(() => {
         };
         const rtime = getDate();
         let albumid = 0;
-        console.log('title: '+data.title);
-        console.log('username: '+data.username);
 
         connection.query("SELECT ALBUM_ID AS albumid FROM ALBUMS WHERE TITLE = '"+data.title+"';",function(err,result){
             if(err)throw(err);
             albumid = result[0].albumid;
-            console.log("album id:"+albumid)
         });
         connection.query("SELECT R.RATING,R.ALBUM_ID AS albumid FROM RATINGS AS R JOIN ALBUMS AS A ON R.ALBUM_ID = A.ALBUM_ID WHERE A.TITLE = '"+data.title+"' AND R.USER_NAME = '"+data.username+"';", function (err, result) {
             if (err) throw (err);
@@ -206,7 +183,6 @@ connection.connect(() => {
         const {title} = req.params;
         connection.query("SELECT AVG(R.RATING) AS avg FROM RATINGS AS R JOIN ALBUMS AS A ON A.ALBUM_ID = R.ALBUM_ID WHERE A.TITLE = '"+title+"';",function(err,result){
             if(err) throw(err);
-            console.log("average for "+title+": "+result);
             if(!isEmpty(result)) res.json(result[0].avg);
         });
     });

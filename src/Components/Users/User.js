@@ -31,13 +31,18 @@ class User extends Component {
     }
 
     getRatings = (name) =>{
-        console.log("name"+ name);
-        fetch('ratings/'+name)
+        fetch('/ratings/'+name)
         .then(res => res.json())
         .then(ratings => this.setState({
             ratings: ratings,
             isLoadingRatings: false
         }));
+    }
+
+    deleteRating = (title) =>{
+        console.log('deleted!');
+        fetch('/delete/'+this.state.name+'/'+title)
+        .then( this.getRatings(this.state.name));
     }
 
     render() {
@@ -54,7 +59,8 @@ class User extends Component {
                         <li key={rating.ALBUM_ID}>
                             <UserRatings artist={rating.ARTIST_NAME}
                                 album={rating.TITLE}
-                                rating={rating.RATING} />
+                                rating={rating.RATING} 
+                                deleteRating = {this.deleteRating}/>
                         </li>
                     ))}
                 </ul>

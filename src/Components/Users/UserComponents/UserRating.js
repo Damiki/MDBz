@@ -9,6 +9,7 @@ const userRating = (props) => {
                 <div>{props.artist}</div>
                 <div>{props.rating}</div>
                 <StarRating rating = {props.rating}/>
+                <span><button className="remove-player" onClick={() => props.deleteRating(props.album)}>✖</button></span>
             </div>
         </div>
     );

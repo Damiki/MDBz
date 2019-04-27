@@ -46,9 +46,12 @@ getRatings = (name) =>{
 getAverage = () =>{
   fetch('/average/'+this.props.album)
   .then(res => res.json())
-  .then(avg => this.setState({
+  .then((avg) => {
+  if(avg !== null)
+  this.setState({
     average: avg
-  }));
+  })
+});
 }
 
   // isClicked = (e) => {

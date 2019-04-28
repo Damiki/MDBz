@@ -10,6 +10,7 @@ const userRating = (props) => {
                 <div><strong>Artist: </strong> {props.artist}</div>
                 <hr></hr>
                 <StarRating rating = {props.rating}/>
+                <span><button className="remove-player" onClick={() => props.deleteRating(props.album)}>✖</button></span>
             </div>
         </div>
     );

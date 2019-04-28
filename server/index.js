@@ -8,8 +8,8 @@ const dateTime = require('node-datetime');
 let mysql = require('mysql');
 let connection = mysql.createConnection({
     host: 'localhost',
-    user: 'root',
-    password: 'D@ve7sql',
+    user: 'dam',
+    password: 'D@miki4sql',
     database: 'music'
 });
 
@@ -115,13 +115,13 @@ connection.connect(() => {
     });
 
     app.get('/album_user_rating/:title/:username', (req, res) => {
-        
+
         const data = {
-                "title": req.params.title,
-                "username": req.params.username
+            "title": req.params.title,
+            "username": req.params.username
         };
 
-        connection.query("SELECT R.RATING AS rating FROM RATINGS AS R JOIN ALBUMS AS A ON R.ALBUM_ID = A.ALBUM_ID WHERE A.TITLE = '"+data.title+"' AND R.USER_NAME = '"+data.username+"';", function (err, result) {
+        connection.query("SELECT R.RATING AS rating FROM RATINGS AS R JOIN ALBUMS AS A ON R.ALBUM_ID = A.ALBUM_ID WHERE A.TITLE = '" + data.title + "' AND R.USER_NAME = '" + data.username + "';", function (err, result) {
             if (err) throw (err);
             res.json(result);
         })
@@ -138,53 +138,73 @@ connection.connect(() => {
     });
 
     app.get('/userratings/:title/:username', (req, res) => {
-        
+
         const data = {
-                "title": req.params.title,
-                "username": req.params.username
+            "title": req.params.title,
+            "username": req.params.username
         };
 
 
-        connection.query("SELECT R.RATING AS rating,R.RATE_TIME AS ratetime,R.USER_NAME AS username FROM RATINGS AS R JOIN ALBUMS AS A ON R.ALBUM_ID = A.ALBUM_ID WHERE A.TITLE = '"+data.title+"' AND R.USER_NAME != '"+data.username+"' ORDER BY R.RATE_TIME DESC LIMIT 5;", function (err, result) {
+        connection.query("SELECT R.RATING AS rating,R.RATE_TIME AS ratetime,R.USER_NAME AS username FROM RATINGS AS R JOIN ALBUMS AS A ON R.ALBUM_ID = A.ALBUM_ID WHERE A.TITLE = '" + data.title + "' AND R.USER_NAME != '" + data.username + "' ORDER BY R.RATE_TIME DESC LIMIT 5;", function (err, result) {
             if (err) throw (err);
             res.json(result);
         })
     });
 
     app.get('/setrating/:title/:username/:rating', (req, res) => {
-        
+
         const data = {
-                "title": req.params.title,
-                "username": req.params.username,
-                "rating": req.params.rating
+            "title": req.params.title,
+            "username": req.params.username,
+            "rating": req.params.rating
         };
         const rtime = getDate();
         let albumid = 0;
 
-        connection.query("SELECT ALBUM_ID AS albumid FROM ALBUMS WHERE TITLE = '"+data.title+"';",function(err,result){
-            if(err)throw(err);
+        connection.query("SELECT ALBUM_ID AS albumid FROM ALBUMS WHERE TITLE = '" + data.title + "';", function (err, result) {
+            if (err) throw (err);
             albumid = result[0].albumid;
         });
-        connection.query("SELECT R.RATING,R.ALBUM_ID AS albumid FROM RATINGS AS R JOIN ALBUMS AS A ON R.ALBUM_ID = A.ALBUM_ID WHERE A.TITLE = '"+data.title+"' AND R.USER_NAME = '"+data.username+"';", function (err, result) {
+
+
+        connection.query("SELECT R.RATING,R.ALBUM_ID AS albumid FROM RATINGS AS R JOIN ALBUMS AS A ON R.ALBUM_ID = A.ALBUM_ID WHERE A.TITLE = '" + data.title + "' AND R.USER_NAME = '" + data.username + "';", function (err, result) {
             if (err) throw (err);
-            if(isEmpty(result)){
-                connection.query("INSERT INTO RATINGS VALUES ("+albumid+",'"+data.username+"',"+data.rating+",'"+rtime+"');",function(err,result){
+            if (isEmpty(result)) {
+                connection.query("INSERT INTO RATINGS VALUES (" + albumid + ",'" + data.username + "'," + data.rating + ",'" + rtime + "');", function (err, result) {
                     if (err) throw (err);
                 });
-            }else {
-                connection.query("UPDATE RATINGS SET RATING ="+data.rating+", RATE_TIME='"+rtime+"' WHERE USER_NAME= '"+data.username+"' AND ALBUM_ID = "+albumid+";",function(err,res){
+            } else {
+                connection.query("UPDATE RATINGS SET RATING =" + data.rating + ", RATE_TIME='" + rtime + "' WHERE USER_NAME= '" + data.username + "' AND ALBUM_ID = " + albumid + ";", function (err, res) {
                     if (err) throw (err);
                 });
             }
         })
     });
 
-    app.get('/average/:title',(req,res)=>{
-        const {title} = req.params;
-        connection.query("SELECT AVG(R.RATING) AS avg FROM RATINGS AS R JOIN ALBUMS AS A ON A.ALBUM_ID = R.ALBUM_ID WHERE A.TITLE = '"+title+"';",function(err,result){
-            if(err) throw(err);
-            if(!isEmpty(result)) res.json(result[0].avg);
+    app.get('/average/:title', (req, res) => {
+        const { title } = req.params;
+        connection.query("SELECT AVG(R.RATING) AS avg FROM RATINGS AS R JOIN ALBUMS AS A ON A.ALBUM_ID = R.ALBUM_ID WHERE A.TITLE = '" + title + "';", function (err, result) {
+            if (err) throw (err);
+            if (!isEmpty(result)) res.json(result[0].avg);
         });
+    });
+
+    app.get('/delete/:username/:title', (req, res) => {
+
+        const data = {
+            "title": req.params.title,
+            "username": req.params.username
+        };
+
+        connection.query("SELECT ALBUM_ID AS albumid FROM ALBUMS WHERE TITLE = '" + data.title + "';", function (err, result) {
+            if (err) throw (err);
+            albumid = result[0].albumid;
+
+        connection.query("DELETE FROM RATINGS WHERE ALBUM_ID = "+albumid+" AND USER_NAME = '"+data.username+"';",function(err,delres){
+            if(err) throw(err);
+            console.log('deleted!');
+        });
+    });
     });
 
     app.get('/logout', (req, res) => {

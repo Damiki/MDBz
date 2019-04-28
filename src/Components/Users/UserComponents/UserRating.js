@@ -8,6 +8,7 @@ const userRating = (props) => {
                 
             <span className="remove-player" onClick={() => props.deleteRating(props.album)}>✖</span>
                 <img classname="user-album-img" src={"http://localhost:3030/albums/" + props.img + ".jpg"} alt="" width="40%" height="30%"></img>
+                <hr></hr>
                 <div><strong>Album: </strong>{props.album}</div>
                 <div><strong>Artist: </strong> {props.artist}</div>
                 <hr></hr>

@@ -5,9 +5,10 @@ const userRating = (props) => {
     return (
         <div>
             <div>
-                <div>{props.album}</div>
-                <div>{props.artist}</div>
-                <div>{props.rating}</div>
+                <img classname="user-album-img" src={"http://localhost:3030/albums/" + props.img + ".jpg"} alt="" width="40%" height="30%"></img>
+                <div><strong>Album: </strong>{props.album}</div>
+                <div><strong>Artist: </strong> {props.artist}</div>
+                <hr></hr>
                 <StarRating rating = {props.rating}/>
             </div>
         </div>

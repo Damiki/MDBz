@@ -105,10 +105,10 @@ connection.connect(() => {
     });
 
     app.get('/ratings/:username', (req, res) => {
-
         const { username } = req.params;
-        connection.query("SELECT R.ALBUM_ID, R.USER_NAME, R.RATING,A.TITLE,A.ARTIST_NAME FROM RATINGS AS R JOIN (SELECT A.ARTIST_NAME ,B.TITLE ,B.ARTIST_ID ,B.ALBUM_ID  FROM ARTISTS AS A JOIN ALBUMS AS B ON A.ARTIST_ID=B.ARTIST_ID) AS A ON R.ALBUM_ID =A.ALBUM_ID WHERE R.USER_NAME = '" + username + "';", function (err, result) {
+        connection.query("SELECT R.ALBUM_ID, R.USER_NAME, R.RATING,A.TITLE,A.ARTIST_NAME, A.ALBUM_ART IMG FROM RATINGS AS R JOIN (SELECT A.ARTIST_NAME ,B.TITLE ,B.ARTIST_ID ,B.ALBUM_ID,B.ALBUM_ART FROM ARTISTS AS A JOIN ALBUMS AS B ON A.ARTIST_ID=B.ARTIST_ID) AS A ON R.ALBUM_ID =A.ALBUM_ID WHERE R.USER_NAME = '" + username + "';", function (err, result) {
             if (err) throw (err);
+            console.log("\nREQUEST RATING: "+result[0].IMG);
             res.json(result);
 
         })

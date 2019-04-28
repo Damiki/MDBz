@@ -3,12 +3,33 @@
   width:70%;
   box-sizing: border-box;
   margin:0 auto;
+  text-align: center;
 }
 
 .UserName{
   display:block;
-  width:150px;
   text-align:center;
   margin-top:0.5em;
   font-size:1.6em;
+}
+
+.user-rated{
+  display:grid;
+  list-style-type: none;
+  grid-template-columns: repeat(3,1fr);
+  grid-gap: 2em;
+}
+
+@media screen and(max-width:1000px){
+  .user-rated{
+    grid-template-columns: repeat(2,1fr);
+  }
+}
+.user-rated-item{
+  border: solid 1px;
+  padding:1em;  
+}
+
+.UserHeader{
+  margin-bottom:1em;
 }

@@ -49,15 +49,23 @@ class User extends Component {
         return (
             <div className="user-container">
                 <UserHeader name={this.state.name} id={this.state.id} img={UserImage} />
-                <ul>
+                <hr/>
+                <h2>My Ratings</h2>
+                {this.state.ratings.length?
+                <ul className="user-rated">
                     {this.state.ratings.map(rating => (
-                        <li key={rating.ALBUM_ID}>
-                            <UserRatings artist={rating.ARTIST_NAME}
+                        <li className="user-rated-item"
+                            key={rating.ALBUM_ID}>
+                            <UserRatings 
+                                img = {rating.IMG}
+                                artist={rating.ARTIST_NAME}
                                 album={rating.TITLE}
                                 rating={rating.RATING} />
                         </li>
                     ))}
-                </ul>
+                </ul>: 
+                <div>None</div>
+                }
             </div>
         );
     }

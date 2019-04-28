@@ -33,3 +33,12 @@
 .UserHeader{
   margin-bottom:1em;
 }
+
+.remove-player{
+  float:right;
+}
+
+.remove-player:hover{
+  background-color: rgb(51, 51, 51);
+  color:#fff;
+}

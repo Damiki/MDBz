@@ -40,7 +40,6 @@ class User extends Component {
     }
 
     deleteRating = (title) =>{
-        console.log('deleted!');
         fetch('/delete/'+this.state.name+'/'+title)
         .then( this.getRatings(this.state.name));
     }
